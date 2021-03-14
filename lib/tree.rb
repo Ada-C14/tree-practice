@@ -248,16 +248,3 @@ class Tree
     return "#{self.inorder}"
   end
 end
-
-# tree = Tree.new
-
-# tree.add(3)
-# tree.add(1)
-# tree.add(2)
-# tree.add(5)
-# tree.add(4)
-# tree.add(6)
-
-# tree.delete(1)
-
-# puts tree.preorder
