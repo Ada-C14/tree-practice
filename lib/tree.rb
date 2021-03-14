@@ -168,8 +168,13 @@ class Tree
     return array
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: Worst case O(n) if every node has to be checked before it is found and deleted, best/average case O(log n) for a balanced BST.
+  # Somewhere in between when deleting a node with both branches, where the branch to get the replacement node from has a lot of elements to its right,
+  # I think... 
+
+  # Space Complexity: Worst case O(n) in the stack to search all nodes for a node to delete (unbalanced), O(log n) for a balanced tree in the stack.
+  # The same number of variables/arrays created for each call, and since an array isn't created until it's needed as a return variable it doesn't 
+  # add additional complexity to the space complexity.
   def get_before_delete(node, key)
     
     return nil if node.nil? # not found
