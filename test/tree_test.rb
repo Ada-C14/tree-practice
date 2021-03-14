@@ -169,7 +169,7 @@ describe Tree do
       expect(tree.preorder).must_equal  [{:key=>1, :value=>nil}, {:key=>2, :value=>nil}]
     end
 
-    it "absorbs branch as new root when root must be deleted but only has one branch" do 
+    it "absorbs branch for node to be deleted with only one branch" do 
       tree.add(1)
       tree.add(2)
       tree.add(6)
