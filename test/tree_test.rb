@@ -198,7 +198,7 @@ describe Tree do
       expect(tree.preorder).must_equal [{:key=>10, :value=>nil}, {:key=>2, :value=>nil}, {:key=>1, :value=>nil}, {:key=>7, :value=>nil}]
     end
 
-    it "absorbs rightmost element of left branch if root must be deleted, has a right branch, and left branch has right branch" do 
+    it "absorbs rightmost element of left branch if node must be deleted, has a right branch, and left branch has right branch" do 
       tree.add(5)
       tree.add(3)
       tree.add(4)
