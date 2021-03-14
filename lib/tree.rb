@@ -49,17 +49,19 @@ class Tree
   # two subtrees, each carrying half its elements.  O(n) comes from the stack calls.
   def find_helper(node, key)
     return nil if node.nil? 
-    
-    returnVal = node.value.nil? ? node.key : node.value
-
-    return returnVal if node.key == key
+  
+    return node if node.key == key
 
     return find_helper(node.left, key) if key <= node.key
     return find_helper(node.right, key) if key > node.key
   end
 
   def find(key)
-    return find_helper(@root, key)
+    node = find_helper(@root, key)
+
+    return nil if node.nil?
+
+    return node.value.nil? ? node.key : node.value
   end
 
   # Time Complexity: O(n) -- you only visit each node once. 
@@ -168,12 +170,71 @@ class Tree
 
   # Time Complexity: 
   # Space Complexity: 
+  def get_before_delete(node, key)
+    
+    return nil if node.nil? # not found
+
+    return [nil, node, 'root'] if node.key == key # root needs to be deleted
+
+    # return node before node to be deleted and node to delete
+    # memory management would be nice here ... 
+    if (key < node.key) # node to delete on left branch, else on right
+      return node.left.key == key ? [node, node.left, 'left'] : get_before_delete(node.left, key) 
+    else 
+      return node.right.key == key ? [node, node.right, 'right'] : get_before_delete(node.right, key)
+    end
+
+  end
 
   def delete(key)
-    node = find(key)
 
-    if node 
+    return nil if @root.nil? # ignore empty trees
 
+    # get node before one to delete, node to be delete, and which branch it's on
+    # this allows us to include root in the same block of code instead of having
+    # to do an entirely separate one
+    before_delete_nodes, delete_node, branch = get_before_delete(@root, key) 
+
+    return nil if delete_node.nil? # indicates not found
+
+    # delete node will now hold the new node that before_delete_nodes connects to 
+    
+    # check leaf
+    if(delete_node.left.nil? && delete_node.right.nil?)
+      delete_node = nil
+    # adopt branch if the other is empty 
+    elsif (delete_node.left.nil?)
+      delete_node = delete_node.right 
+    elsif (delete_node.right.nil?)
+      delete_node = delete_node.left
+    # both branches have something
+    # you can either swap with the right most node on the left branch
+    # or the left most node on the right branch
+    # we'll do the right most node on the left branch
+    elsif (delete_node.left.right.nil?)
+      delete_node.left.right = delete_node.right # prepare node with right branch
+      delete_node = delete_node.left 
+    else
+      find_new_node = delete_node.left
+
+      while(find_new_node.right.right)
+        find_new_node = find_new_node.right 
+      end
+      
+      # set up new node to adopt branches
+      find_new_node.right.right = delete_node.right
+      find_new_node.right.left = delete_node.left
+      delete_node = find_new_node.right
+      find_new_node.right = nil # remove this node from original spot
+    end
+
+    # use branch variable to assign new root/branches
+    if branch == 'root'
+      @root = delete_node
+    elsif branch == 'left'
+      before_delete_nodes.left = delete_node
+    else 
+      before_delete_nodes.right = delete_node 
     end
   end
 
@@ -182,3 +243,16 @@ class Tree
     return "#{self.inorder}"
   end
 end
+
+# tree = Tree.new
+
+# tree.add(3)
+# tree.add(1)
+# tree.add(2)
+# tree.add(5)
+# tree.add(4)
+# tree.add(6)
+
+# tree.delete(1)
+
+# puts tree.preorder
