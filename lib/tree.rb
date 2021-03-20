@@ -31,8 +31,8 @@ class Tree
 
   end
 
-  # Time Complexity: O(log n)
-  # Space Complexity: 
+  # Time Complexity: O(n) for unbalanced and O(log n ) for balanced
+  # Space Complexity: O(n) - stack calls
   def add(key, value)
     @root = add_helper(@root, key, value)
   end
@@ -50,8 +50,8 @@ class Tree
 
   end
 
-  # Time Complexity: O(log n)
-  # Space Complexity: 
+  # Time Complexity: O(n) for worst case, O(log n) for balanced tree
+  # Space Complexity: O(n) - stack call
   def find(key)
     find_helper(@root, key)
   end
