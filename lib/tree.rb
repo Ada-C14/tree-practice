@@ -17,7 +17,7 @@ class Tree
   end
 
   # Time Complexity: O(log n)
-  # Space Complexity: O(1)
+  # Space Complexity: O(log n)
   def add(key, value)
     new_node = TreeNode.new(key, value)
 
@@ -29,7 +29,7 @@ class Tree
   end
 
   # Time Complexity: O(log n)
-  # Space Complexity: O(1)
+  # Space Complexity: O(log n)
   def find(key)
     if @root.nil?
       return nil
@@ -45,26 +45,18 @@ class Tree
     return inorder_helper(@root, [])
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n)
+  # Space Complexity: O(n)
   def preorder
     return [] if @root.nil?
     return preorder_helper(@root, [])
   end
 
-  def preorder_helper(current_node, array)
-    if current_node
-      array << {key: current_node.key, value: current_node.value}
-      preorder_helper(current_node.left, array)
-      preorder_helper(current_node.right, array)
-    end
-    return array
-  end
-
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n)
+  # Space Complexity: O(n)
   def postorder
-    raise NotImplementedError
+    return [] if @root.nil?
+    return postorder_helper(@root, [])
   end
 
   # Time Complexity: 
@@ -119,6 +111,24 @@ class Tree
     end
     return array
   end
+
+  def preorder_helper(current_node, array)
+    if current_node
+      array << {key: current_node.key, value: current_node.value}
+      preorder_helper(current_node.left, array)
+      preorder_helper(current_node.right, array)
+    end
+    return array
+  end
+
+  def postorder_helper(current_node, array)
+    if current_node
+      postorder_helper(current_node.left, array)
+      postorder_helper(current_node.right, array)
+      array << {key: current_node.key, value: current_node.value}
+    end
+    return array
+  end
 end
 
 my_tree = Tree.new()
@@ -140,3 +150,4 @@ puts my_tree.find(10) == "10"
 
 p my_tree.inorder
 p my_tree.preorder
+p my_tree.postorder
