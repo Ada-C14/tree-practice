@@ -41,11 +41,14 @@ class Tree
   
 
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n)
+  # Space Complexity: O(n)
   def inorder
-    raise NotImplementedError
+    return [] if @root.nil?
+    return inorder_helper(@root, [])
   end
+
+  
 
   # Time Complexity: 
   # Space Complexity: 
@@ -102,5 +105,15 @@ class Tree
       return current_node.value
     end
   end
+
+  def inorder_helper(current_node, array)
+    if current_node
+      inorder_helper(current_node.left, array)
+      array << {key: current_node.key, value: current_node.value}
+      inorder_helper(current_node.right, array)
+    end
+    return array
+  end
 end
+
 
