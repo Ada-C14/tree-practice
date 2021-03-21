@@ -38,9 +38,6 @@ class Tree
     end
   end
 
-  
-
-
   # Time Complexity: O(n)
   # Space Complexity: O(n)
   def inorder
@@ -48,12 +45,20 @@ class Tree
     return inorder_helper(@root, [])
   end
 
-  
-
   # Time Complexity: 
   # Space Complexity: 
   def preorder
-    raise NotImplementedError
+    return [] if @root.nil?
+    return preorder_helper(@root, [])
+  end
+
+  def preorder_helper(current_node, array)
+    if current_node
+      array << {key: current_node.key, value: current_node.value}
+      preorder_helper(current_node.left, array)
+      preorder_helper(current_node.right, array)
+    end
+    return array
   end
 
   # Time Complexity: 
@@ -116,4 +121,22 @@ class Tree
   end
 end
 
+my_tree = Tree.new()
 
+my_tree.add(20, "20")
+my_tree.add(25, "25")
+my_tree.add(15, "15")
+my_tree.add(22, "22")
+my_tree.add(10, "10")
+
+puts my_tree.root.value == "20"
+puts my_tree.root.left.value == "15"
+puts my_tree.root.right.left.value == "22"
+puts my_tree.root.right.value == "25"
+puts my_tree.root.left.left.value == "10"
+puts my_tree.find(20) == "20"
+puts my_tree.find(75) == nil
+puts my_tree.find(10) == "10"
+
+p my_tree.inorder
+p my_tree.preorder
