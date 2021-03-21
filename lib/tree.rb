@@ -18,7 +18,7 @@ class Tree
 
   # Time Complexity: O(log n)
   # Space Complexity: O(log n)
-  def add(key, value)
+  def add(key, value = nil)
     new_node = TreeNode.new(key, value)
 
     if @root.nil?
@@ -62,7 +62,7 @@ class Tree
   # Time Complexity: 
   # Space Complexity: 
   def height
-    raise NotImplementedError
+    return height_helper(@root)
   end
 
   # Optional Method
@@ -129,25 +129,10 @@ class Tree
     end
     return array
   end
+
+  def height_helper(current_node)
+    return 0 if current_node.nil?
+    return 1 + [height_helper(current_node.right), height_helper(current_node.left)].max
+  end
+
 end
-
-my_tree = Tree.new()
-
-my_tree.add(20, "20")
-my_tree.add(25, "25")
-my_tree.add(15, "15")
-my_tree.add(22, "22")
-my_tree.add(10, "10")
-
-puts my_tree.root.value == "20"
-puts my_tree.root.left.value == "15"
-puts my_tree.root.right.left.value == "22"
-puts my_tree.root.right.value == "25"
-puts my_tree.root.left.left.value == "10"
-puts my_tree.find(20) == "20"
-puts my_tree.find(75) == nil
-puts my_tree.find(10) == "10"
-
-p my_tree.inorder
-p my_tree.preorder
-p my_tree.postorder
