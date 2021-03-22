@@ -126,14 +126,9 @@ class Tree
       left_depth = height_helper(current.left) + 1
       right_depth = height_helper(current.right) + 1
 
-      if left_depth > right_depth
-        return left_depth
-      else
-        return right_depth
-      end
+      return [left_depth, right_depth].max
     end
     
-
   end
 
   # Time Complexity: O(n)
