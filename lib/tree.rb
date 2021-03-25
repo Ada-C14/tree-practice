@@ -59,8 +59,8 @@ class Tree
     return postorder_helper(@root, [])
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n)
+  # Space Complexity: O(n)
   def height
     return height_helper(@root)
   end
@@ -69,7 +69,18 @@ class Tree
   # Time Complexity: 
   # Space Complexity: 
   def bfs
-    raise NotImplementedError
+    return [] if @root.nil?
+    result = []
+    queue = [@root]
+
+    while !queue.empty?
+      current_node = queue.shift
+      result << {key: current_node.key, value: current_node.value}
+      queue << current_node.left if current_node.left
+      queue << current_node.right if current_node.right
+    end
+
+    return result
   end
 
   # Useful for printing
