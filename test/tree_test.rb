@@ -96,7 +96,8 @@ describe Tree do
     end
 
     it "will report the height for a balanced tree" do
-      expect(tree_with_nodes.height).must_equal 3
+      expect(tree_with_nodes.height).must_equal 4
+      # for tree_with_nodes (line 10-15), the height from 5, 10, 15, 25 is 4
     end
 
     it "will report the height for unbalanced trees" do
