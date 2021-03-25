@@ -96,7 +96,7 @@ describe Tree do
     end
 
     it "will report the height for a balanced tree" do
-      expect(tree_with_nodes.height).must_equal 3
+      expect(tree_with_nodes.height).must_equal 4 # this used to be 3, but when i drew out the tree the height was 4... 
     end
 
     it "will report the height for unbalanced trees" do
@@ -121,6 +121,91 @@ describe Tree do
       my_tree.add(60)
 
       expect(my_tree.height).must_equal 5
+    end
+  end
+
+  describe "delete" do 
+    it "returns nil for single node trees and empty trees" do 
+      expect(tree.delete(1)).must_be_nil
+      tree.add(1)
+      expect(tree.delete(1)).must_be_nil
+    end
+
+    it "absorbs branch as new root when root must be deleted but only has one branch" do 
+      tree.add(1)
+      tree.add(3)
+      tree.delete(1)
+      expect(tree.preorder).must_equal [{:key=>3, :value=>nil}]
+
+      tree.add(2)
+      tree.delete(3)
+      expect(tree.preorder).must_equal [{:key=>2, :value=>nil}]
+    end
+
+    it "absorbs left branch if root must be deleted, has a right branch, and left branch has no right branch" do 
+      tree.add(3)
+      tree.add(1)
+      tree.add(4)
+      tree.add(0)
+      tree.delete(3)
+      expect(tree.preorder).must_equal [{:key=>1, :value=>nil}, {:key=>0, :value=>nil}, {:key=>4, :value=>nil}]
+    end
+
+    it "absorbs rightmost element of left branch if root must be deleted, has a right branch, and left branch has right branch" do 
+      tree.add(3)
+      tree.add(0)
+      tree.add(4)
+      tree.add(1)
+      tree.add(2)
+      tree.delete(3)
+      expect(tree.preorder).must_equal [{:key=>2, :value=>nil}, {:key=>0, :value=>nil}, {:key=>1, :value=>nil}, {:key=>4, :value=>nil}]
+    end
+
+    it "deletes leaves successfully" do 
+      tree.add(1)
+      tree.add(2)
+      tree.add(3)
+      tree.delete(3)
+      expect(tree.preorder).must_equal  [{:key=>1, :value=>nil}, {:key=>2, :value=>nil}]
+    end
+
+    it "absorbs branch for node to be deleted with only one branch" do 
+      tree.add(1)
+      tree.add(2)
+      tree.add(6)
+      tree.add(3)
+      tree.add(5)
+      tree.add(4)
+      tree.add(9)
+      tree.add(7)
+      tree.add(8)
+      tree.delete(2)
+      expect(tree.preorder).must_equal [{:key=>1, :value=>nil}, {:key=>6, :value=>nil}, {:key=>3, :value=>nil}, {:key=>5, :value=>nil},
+                                        {:key=>4, :value=>nil}, {:key=>9, :value=>nil},{:key=>7, :value=>nil}, {:key=>8, :value=>nil},]
+
+      tree.delete(9)
+      expect(tree.preorder).must_equal [{:key=>1, :value=>nil}, {:key=>6, :value=>nil}, {:key=>3, :value=>nil}, {:key=>5, :value=>nil}, 
+                                        {:key=>4, :value=>nil}, {:key=>7, :value=>nil}, {:key=>8, :value=>nil}]
+    end
+
+    it "absorbs left branch if node must be deleted, has a right branch, and left branch has no right branch" do 
+      tree.add(10)
+      tree.add(5)
+      tree.add(7)
+      tree.add(2)
+      tree.add(1)
+      tree.delete(5)
+      expect(tree.preorder).must_equal [{:key=>10, :value=>nil}, {:key=>2, :value=>nil}, {:key=>1, :value=>nil}, {:key=>7, :value=>nil}]
+    end
+
+    it "absorbs rightmost element of left branch if node must be deleted, has a right branch, and left branch has right branch" do 
+      tree.add(5)
+      tree.add(3)
+      tree.add(4)
+      tree.add(1)
+      tree.add(2)
+      tree.delete(3)
+      expect(tree.preorder).must_equal [{:key=>5, :value=>nil}, {:key=>2, :value=>nil}, {:key=>1, :value=>nil}, {:key=>4, :value=>nil}]
     end
   end
 end
