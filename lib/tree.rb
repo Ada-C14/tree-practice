@@ -53,7 +53,7 @@ class Tree
       if pointer.key == key
         find = pointer.value
         break
-      elsif pointer.key <= key
+      elsif pointer.key < key
         pointer = pointer.right
       else
         pointer = pointer.left
@@ -107,12 +107,14 @@ class Tree
   # Time Complexity: 
   # Space Complexity: 
   def height
-    return height_helper(@root, 0)
+    return height_helper(@root)
   end
 
-  def height_helper(root, max_height)
-    return max_height if root.nil?
-
+  def height_helper(root)
+    return 0 if root.nil?
+    right = height_helper(root.right)
+    left = height_helper(root.left)
+    return 1 + (left > right ? left : right)
   end
 
   # Optional Method
@@ -125,8 +127,9 @@ class Tree
   def bfs_helper(root, result)
     return result if root.nil?
     result.push({key: root.key, value: root.value})
-    bfs_helper(root.left, result)
-    bfs_helper(root.right, result)
+    left = bfs_helper(root.left, result)
+    right = bfs_helper(root.right, result)
+    return result
   end
 
   # Useful for printing
