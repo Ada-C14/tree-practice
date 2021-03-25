@@ -17,7 +17,7 @@ class Tree
   end
 
   # Time Complexity: O(log n) for balanced tree/ O(n) for unbalanced tree,
-  #                  because the worst case scenario is to run thru the whole height of the binary tree to add a leave,
+  #                  because the worst case scenario is to run thru the whole height of the binary tree to add a leaf,
   #                  and it only takes half amount of the elements on the binary tree for searching.
   # Space Complexity: O(1), because the variables used is a constant.
   def add(key, value)
@@ -43,7 +43,7 @@ class Tree
   end
 
   # Time Complexity: O(log n) for balanced tree/ O(n) for unbalanced tree,
-  #                  because the worst case scenario is to run thru the whole height of the binary tree to find a leave,
+  #                  because the worst case scenario is to run thru the whole height of the binary tree to find a leaf,
   #                  and it only takes half amount of the elements on the binary tree for searching.
   # Space Complexity: O(1), because the variables used is a constant. 
   def find(key)
@@ -64,33 +64,69 @@ class Tree
 
   # Time Complexity: 
   # Space Complexity: 
+  # left/root/right
   def inorder
-    raise NotImplementedError
+    return inorder_helper(@root, [])
+  end
+
+  def inorder_helper(root, result)
+    return result if root.nil? 
+    inorder_helper(root.left, result)
+    result.push({key: root.key, value: root.value})
+    inorder_helper(root.right, result)
   end
 
   # Time Complexity: 
   # Space Complexity: 
+  # root/left/right
   def preorder
-    raise NotImplementedError
+    return preorder_helper(@root, [])
+  end
+
+  def preorder_helper(root, result)
+    return result if root.nil? 
+    result.push({key: root.key, value: root.value})
+    preorder_helper(root.left, result)
+    preorder_helper(root.right, result)
   end
 
   # Time Complexity: 
   # Space Complexity: 
+  # left/right/root
   def postorder
-    raise NotImplementedError
+    return postorder_helper(@root, [])
+  end
+
+  def postorder_helper(root, result)
+    return result if root.nil? 
+    postorder_helper(root.left, result)
+    postorder_helper(root.right, result)
+    result.push({key: root.key, value: root.value})
   end
 
   # Time Complexity: 
   # Space Complexity: 
   def height
-    raise NotImplementedError
+    return height_helper(@root, 0)
+  end
+
+  def height_helper(root, max_height)
+    return max_height if root.nil?
+
   end
 
   # Optional Method
   # Time Complexity: 
   # Space Complexity: 
   def bfs
-    raise NotImplementedError
+    return bfs_helper(@root, [])
+  end
+
+  def bfs_helper(root, result)
+    return result if root.nil?
+    result.push({key: root.key, value: root.value})
+    bfs_helper(root.left, result)
+    bfs_helper(root.right, result)
   end
 
   # Useful for printing
