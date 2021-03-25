@@ -20,7 +20,7 @@ class Tree
   #                  because the worst case scenario is to run thru the whole height of the binary tree to add a leaf,
   #                  and it only takes half amount of the elements on the binary tree for searching.
   # Space Complexity: O(1), because the variables used is a constant.
-  def add(key, value)
+  def add(key, value = nil)
     return @root = TreeNode.new(key, value) if @root.nil?
 
     pointer = @root
