@@ -46,7 +46,8 @@ class Tree
 
   # Space Complexity: This is still O(n) since worst case is again, having to search all the nodes
   # by traveling the same branch, and O(log n) for a more balanced tree where each tree branches into 
-  # two subtrees, each carrying half its elements.  O(n) comes from the stack calls.
+  # two subtrees, each carrying half its elements.  O(n) comes from the stack calls (worst case, again --
+  # best case is O(log n) for a balanced tree).
   def find_helper(node, key)
     return nil if node.nil? 
   
@@ -65,8 +66,9 @@ class Tree
   end
 
   # Time Complexity: O(n) -- you only visit each node once. 
-  # Space Complexity: Assuming the same array is passed down memory, I want to say it's O(n), simplified from O(2n).
-  # The stack accounts for visiting every node once; the array is accounts for a hash created for each node.
+  # Space Complexity: O(n) -- Assuming the same array is passed down memory, I want to say it's O(n), simplified from O(2n).
+  # The array is accounts for a hash created for each node.
+  # The stack size will be the height of the tree, which doesn't exceed O(n)
   def inorder_helper(node, array)
     if node
       inorder_helper(node.left, array)
@@ -82,9 +84,9 @@ class Tree
   end
 
   # Time Complexity: O(n) -- you only visit each node once. 
-  # Space Complexity: Assuming the same array is passed down memory, simplified from O(2n).
-  # The stack accounts for visiting every node once; the array is accounts for a hash created for each node.
-  # basically the same as inorder.
+  # Space Complexity: O(n) - Assuming the same array is passed down memory, simplified from O(2n).
+  # The array is accounts for a hash created for each node.
+  # basically the same as inorder. The stack size will be the height of the tree, which doesn't exceed O(n)
   def preorder_helper(node, array)
     if node
       array << {:key=> node.key, :value=> node.value}
@@ -100,9 +102,9 @@ class Tree
   end
 
   # Time Complexity: O(n) -- you only visit each node once. 
-  # Space Complexity: Assuming the same array is passed down memory, simplified from O(2n).
+  # Space Complexity: O(n) Assuming the same array is passed down memory, simplified from O(2n).
   # The stack accounts for visiting every node once; the array is accounts for a hash created for each node.
-  # basically the same as inorder.
+  # basically the same as inorder. The stack size will be the height of the tree, which doesn't exceed O(n)
   def postorder_helper(node, array)
     if node
       postorder_helper(node.left, array)
@@ -138,7 +140,7 @@ class Tree
   end
 
   # Optional Method
-  # Time Complexity: If we pretend the queue doesn't have an O(n) every time an element gets popped, O(n) -- all elements
+  # Time Complexity: O(n) ...? If we pretend the queue doesn't have an O(n) every time an element gets popped, O(n) -- all elements
   # are operated on at most thrice to enqueue, pop, and load element into the return array. My guess is that even with 
   # adding to the end of the array is always an O(n) operation, but the the shifting would be O(n^2) given that a balanced
   # tree would have 2 nodes pushed in for every node pushed out, so every loop you are shifting an array with one element 
