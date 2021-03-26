@@ -16,51 +16,134 @@ class Tree
     @root = nil
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
-  def add(key, value)
-    raise NotImplementedError
+  # Time Complexity: O(log n)
+  # Space Complexity: O(log n)
+  def add(key, value = nil)
+    new_node = TreeNode.new(key, value)
+
+    if @root.nil?
+      @root = new_node
+    else
+      add_helper(@root, new_node)
+    end
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(log n)
+  # Space Complexity: O(log n)
   def find(key)
-    raise NotImplementedError
+    if @root.nil?
+      return nil
+    else
+      return find_helper(@root, key)
+    end
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n)
+  # Space Complexity: O(n)
   def inorder
-    raise NotImplementedError
+    return [] if @root.nil?
+    return inorder_helper(@root, [])
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n)
+  # Space Complexity: O(n)
   def preorder
-    raise NotImplementedError
+    return [] if @root.nil?
+    return preorder_helper(@root, [])
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n)
+  # Space Complexity: O(n)
   def postorder
-    raise NotImplementedError
+    return [] if @root.nil?
+    return postorder_helper(@root, [])
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n)
+  # Space Complexity: O(n)
   def height
-    raise NotImplementedError
+    return height_helper(@root)
   end
 
   # Optional Method
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(nm)
+  # Space Complexity: O(n)
   def bfs
-    raise NotImplementedError
+    return [] if @root.nil?
+    result = []
+    queue = [@root]
+
+    while !queue.empty?
+      current_node = queue.shift
+      result << {key: current_node.key, value: current_node.value}
+      queue << current_node.left if current_node.left
+      queue << current_node.right if current_node.right
+    end
+
+    return result
   end
 
   # Useful for printing
   def to_s
     return "#{self.inorder}"
   end
+
+  private
+
+  def add_helper(current_node, new_node)
+    return new_node if current_node.nil?
+
+    if new_node.key <= current_node.key
+      current_node.left = add_helper(current_node.left, new_node)
+    else
+      current_node.right = add_helper(current_node.right, new_node)
+    end
+
+    return current_node 
+  end
+
+  def find_helper(current_node, key)
+    if current_node.nil?
+      return nil
+    elsif key < current_node.key
+      return find_helper(current_node.left, key)
+    elsif key > current_node.key
+      return find_helper(current_node.right, key)
+    else
+      return current_node.value
+    end
+  end
+
+  def inorder_helper(current_node, array)
+    if current_node
+      inorder_helper(current_node.left, array)
+      array << {key: current_node.key, value: current_node.value}
+      inorder_helper(current_node.right, array)
+    end
+    return array
+  end
+
+  def preorder_helper(current_node, array)
+    if current_node
+      array << {key: current_node.key, value: current_node.value}
+      preorder_helper(current_node.left, array)
+      preorder_helper(current_node.right, array)
+    end
+    return array
+  end
+
+  def postorder_helper(current_node, array)
+    if current_node
+      postorder_helper(current_node.left, array)
+      postorder_helper(current_node.right, array)
+      array << {key: current_node.key, value: current_node.value}
+    end
+    return array
+  end
+
+  def height_helper(current_node)
+    return 0 if current_node.nil?
+    return 1 + [height_helper(current_node.right), height_helper(current_node.left)].max
+  end
+
 end
