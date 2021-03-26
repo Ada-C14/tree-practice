@@ -1,3 +1,5 @@
+require 'set'
+
 class TreeNode
   attr_reader :key, :value
   attr_accessor :left, :right
@@ -130,10 +132,27 @@ class Tree
     nodes_arr << { key: current.key, value: current.value }
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n)
+  # >> Go through every node in tree to confirm deepest level
+  # Space Complexity: O(log n)
+  # >> store set of unique levels / depths (log n)
+  # >> store current node O(1)
+  # >> store current height O(1)
   def height
-    raise NotImplementedError
+    return 0 if @root.nil?
+
+    heights = Set.new
+    height_helper(@root, heights, 1)
+
+    return heights.size
+  end
+
+  def height_helper(current, heights, curr_height)
+    return if current.nil?
+
+    heights << curr_height
+    height_helper(current.left, heights, curr_height + 1)
+    height_helper(current.right, heights, curr_height + 1)
   end
 
   # Optional Method
