@@ -18,32 +18,52 @@ class Tree
 
   # Time Complexity: O(log n)
   # >> Assuming balanced BST, O(log n) time complexity (half the num nodes to check each time)
-  # >> If not balanced, could by O(n)
+  # >> If not balanced, could be O(n)
   # Space Complexity: O(1)
   # >> keep track of current tree node
-  def add(key, value)
-    @root = TreeNode.new(key, value) if @root.nil?
+  def add(key, value = nil)
+    return @root = TreeNode.new(key, value) if @root.nil?
     
     current = @root
-    while current.right && current.left
+    until current.nil?
+      if key > current.key
+        if !current.right
+          current.right = TreeNode.new(key, value)
+          return
+        else
+          current = current.right
+        end
+      else
+        if !current.left
+          current.left = TreeNode.new(key, value)
+          return
+        else
+          current = current.left
+        end
+      end
+    end
+  end
+
+  # Time Complexity: O(log n)
+  # >> Assuming balanced BST, O(log n) time complexity (half the num nodes to check each time)
+  # >> If not balanced, could be O(n)
+  # Space Complexity: O(1)
+  # >> Keep track of current node
+  def find(key)
+    return nil if @root.nil?
+
+    current = @root
+    until current.nil?
+      return current.value if current.key == key
+
       current = if key > current.key
                   current.right
                 else
                   current.left
                 end
     end
-    
-    if key > current.key
-      current.right = TreeNode.new(key, value)
-    else
-      current.left = TreeNode.new(key, value)
-    end
-  end
 
-  # Time Complexity: 
-  # Space Complexity: 
-  def find(key)
-    raise NotImplementedError
+    return nil
   end
 
   # Time Complexity: 
