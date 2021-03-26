@@ -30,7 +30,7 @@ class Tree
   def add_helper(current, new_node)
     if new_node.value <= current.value
       current.left = add_helper(current.left, new_node)
-    elsif new_node.value => current.value
+    elsif new_node.value >= current.value
       current.right = add_helper(curent.right, new_node)
     end 
   end
@@ -105,7 +105,18 @@ class Tree
   # Time Complexity: 
   # Space Complexity: 
   def height
-    raise NotImplementedError
+    return nil if @root.nil?
+    return height_helper(@root)
+
+  end
+
+  def height_helper(current_node)
+    return 0 if current_node.nil?
+    if height_helper(current_node.right) > height_helper(current_node.left)
+      return 1 + height_helper(current_node.right)
+    elsif height_helper(current_node.right) < height_helper(current_node.left)
+      return 1 + height_helper(current_node.left)
+    end
   end
 
   # Optional Method
