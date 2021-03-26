@@ -159,7 +159,27 @@ class Tree
   # Time Complexity: 
   # Space Complexity: 
   def bfs
-    raise NotImplementedError
+    return [] if @root.nil?
+
+    bfs_nodes_arr = [{ key: @root.key, value: @root.value }]
+    nodes_queue = Queue.new
+    nodes_queue << @root
+
+    until nodes_queue.empty?
+      current_node = nodes_queue.deq
+
+      if current_node.left
+        bfs_nodes_arr << { key: current_node.left.key, value: current_node.left.value }
+        nodes_queue << current_node.left
+      end
+
+      if current_node.right
+        bfs_nodes_arr << { key: current_node.right.key, value: current_node.right.value }
+        nodes_queue << current_node.right
+      end
+    end
+
+    return bfs_nodes_arr
   end
 
   # Useful for printing
