@@ -156,8 +156,11 @@ class Tree
   end
 
   # Optional Method
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n)
+  # >> visiting every node
+  # Space Complexity: O(n)
+  # >> bfs_nodes_arr will hold all nodes in tree O(n)
+  # >> nodes_queue at most would hold number of leaves in tree O(n/2)
   def bfs
     return [] if @root.nil?
 
