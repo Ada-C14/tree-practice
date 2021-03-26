@@ -66,8 +66,8 @@ class Tree
   end
 
   # Optional Method
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(nm)
+  # Space Complexity: O(n)
   def bfs
     return [] if @root.nil?
     result = []
