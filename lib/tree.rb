@@ -70,6 +70,7 @@ class Tree
   # >> hit every node in tree during traversal
   # Space Complexity: O(log n)
   # >> go down one side of tree at a time --> stack has height # of levels
+  # >> O(n) if unbalanced
   def inorder
     return [] if @root.nil?
 
@@ -91,16 +92,42 @@ class Tree
   # >> hit every node in tree during traversal
   # Space Complexity: O(log n)
   # >> go down one side of tree at a time --> stack has height # of levels
+  # >> O(n) if unbalanced
   def preorder
-    return nil if @root.nil?
+    return [] if @root.nil?
+    nodes_arr = []
+    preorder_helper(@root, nodes_arr)
+
+    return nodes_arr
+  end
+
+  def preorder_helper(current, nodes_arr)
+    return if current.nil?
+
+    nodes_arr << { key: current.key, value: current.value }
+    preorder_helper(current.left, nodes_arr)
+    preorder_helper(current.right, nodes_arr)
   end
 
   # Time Complexity: O(n)
   # >> hit every node in tree during traversal
   # Space Complexity: O(log n)
   # >> go down one side of tree at a time --> stack has height # of levels
+  # >> O(n) if unbalanced
   def postorder
-    return nil if @root.nil?
+    return [] if @root.nil?
+    nodes_arr = []
+    postorder_helper(@root, nodes_arr)
+
+    return nodes_arr
+  end
+
+  def postorder_helper(current, nodes_arr)
+    return if current.nil?
+
+    postorder_helper(current.left, nodes_arr)
+    postorder_helper(current.right, nodes_arr)
+    nodes_arr << { key: current.key, value: current.value }
   end
 
   # Time Complexity: 
