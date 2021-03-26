@@ -66,22 +66,41 @@ class Tree
     return nil
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n)
+  # >> hit every node in tree during traversal
+  # Space Complexity: O(log n)
+  # >> go down one side of tree at a time --> stack has height # of levels
   def inorder
-    raise NotImplementedError
+    return [] if @root.nil?
+
+    nodes_arr = []
+    inorder_helper(@root, nodes_arr)
+
+    return nodes_arr
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  def inorder_helper(current, nodes_arr)
+    return if current.nil?
+
+    inorder_helper(current.left, nodes_arr)
+    nodes_arr << { key: current.key, value: current.value }
+    inorder_helper(current.right, nodes_arr)
+  end
+
+  # Time Complexity: O(n)
+  # >> hit every node in tree during traversal
+  # Space Complexity: O(log n)
+  # >> go down one side of tree at a time --> stack has height # of levels
   def preorder
-    raise NotImplementedError
+    return nil if @root.nil?
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n)
+  # >> hit every node in tree during traversal
+  # Space Complexity: O(log n)
+  # >> go down one side of tree at a time --> stack has height # of levels
   def postorder
-    raise NotImplementedError
+    return nil if @root.nil?
   end
 
   # Time Complexity: 
