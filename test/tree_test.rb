@@ -14,9 +14,10 @@ describe Tree do
     tree.add(15, "Ada")
     tree.add(25, "Kari")
     tree
+    # print tree
   }
 
-  it "add & find values" do
+  xit "add & find values" do
     tree.add(5, "Peter")
     expect(tree.find(5)).must_equal "Peter"
 
@@ -27,7 +28,7 @@ describe Tree do
     expect(tree.find(3)).must_equal "Paul"
   end
 
-  it "can't find anything when the tree is empty" do
+  xit "can't find anything when the tree is empty" do
     expect(tree.find(50)).must_be_nil
   end
 
@@ -37,7 +38,7 @@ describe Tree do
     end
 
     it "will return the tree in order" do
-
+      print(tree_with_nodes)
       expect(tree_with_nodes.inorder).must_equal [{:key=>1, :value=>"Mary"}, {:key=>3, :value=>"Paul"}, 
                                        {:key=>5, :value=>"Peter"}, {:key=>10, :value=>"Karla"}, 
                                        {:key=>15, :value=>"Ada"}, {:key=>25, :value=>"Kari"}]
@@ -45,7 +46,7 @@ describe Tree do
   end
 
 
-  describe "preorder" do
+  xdescribe "preorder" do
     it "will give an empty array for an empty tree" do
       expect(tree.preorder).must_equal []
     end
@@ -57,7 +58,7 @@ describe Tree do
     end
   end
 
-  describe "postorder" do
+  xdescribe "postorder" do
     it "will give an empty array for an empty tree" do
       expect(tree.postorder).must_equal []
     end
@@ -69,7 +70,7 @@ describe Tree do
     end
   end
 
-  describe "breadth first search" do
+  xdescribe "breadth first search" do
     it "will give an empty array for an empty tree" do
       expect(tree.bfs).must_equal []
     end
@@ -81,7 +82,7 @@ describe Tree do
     end
   end
 
-  describe "height" do
+  xdescribe "height" do
     it "will return 0 for an empty tree" do
       my_tree = Tree.new
 
