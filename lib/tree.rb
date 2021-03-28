@@ -6,9 +6,9 @@ class TreeNode
 
   def initialize(key, val)
     @key = key
-   @value = val
-   @left = nil
-   @right = nil
+    @value = val
+    @left = nil
+    @right = nil
   end
 end
 
@@ -188,5 +188,73 @@ class Tree
   # Useful for printing
   def to_s
     return "#{self.inorder}"
+  end
+
+  # Time Complexity: O(log n)
+  # >> O(log n) to find node with input key (assuming balanced, otherwise, worst-case O(n))
+  # >> O(log n) to find replacement node as-needed
+  # Space Complexity: O(log n)
+  # >> O(log n) call stack for recursive calls (assuming balanced, otherwise, worst-case O(n))
+  # >> O(1) to keep track of current node and key to delete
+  #
+  # PSEUDOCODE:
+  # Search:
+  # >> go left if key to delete is < current key
+  # >> go right if key to delete is > current key
+  # >> if key to delete == current key, we must consider how to delete / replace as necessary
+  #
+  # Delete + replace:
+  # >> if leaf just delete
+  # >> if has right child, then replace with leftmost child of first right child (METHOD NAME HERE)
+  # >> WHY? the first right child is larger than the node to delete; getting leftmost ensures the smallest of the
+  # larger nodes
+  # >> if no right child and has left child, replace with rightmost child of first left child
+  # # >> WHY? the first left child ensures smaller key than key of node to delete;
+  # rightmost ensures we are replacing with the largest of the smaller nodes in that subtree
+  def delete(key)
+    return if @root.nil?
+
+    current = @root
+    delete_helper(current, key)
+
+    return
+  end
+
+  def delete_helper(current_node, key_to_delete)
+    # Need to search left subtree for node to delete
+    if current_node.key > key_to_delete
+      current_node.left = delete_helper(current_node.left, key_to_delete)
+    # Need to search right subtree for node to delete
+    elsif current_node.key < key_to_delete
+      current_node.right = delete_helper(current_node.right, key_to_delete)
+    else
+      # We found the node to delete
+      # If leaf, we can just delete
+      if !current_node.left && !current_node.right
+        current_node = nil
+      # Right child exists --> replace with the leftmost child of first right child
+      elsif current_node.right
+        current_node = replacement_node_has_right_child(current_node.right)
+        current_node.right = delete_helper(current_node.right, current_node.key)
+      # No right child --> replace with the rightmost child of first left child
+      else
+        current_node = replacement_node_no_right_child(current_node.left)
+        current_node.left = delete_helper(current_node.left, current_node.key)
+      end
+    end
+
+    return current_node
+  end
+
+  def replacement_node_has_right_child(current_node)
+    current_node = current_node.left while current_node.left
+    
+    return current_node
+  end
+
+  def replacement_node_no_right_child(current_node)
+    current_node = current_node.right while current_node.right
+
+    return current_node
   end
 end
