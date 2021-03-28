@@ -1,8 +1,8 @@
 require 'set'
 
 class TreeNode
-  attr_reader :key, :value
-  attr_accessor :left, :right
+  # attr_reader :key, :value
+  attr_accessor :left, :right, :key, :value # adding write access to key and value for delete method
 
   def initialize(key, val)
     @key = key
@@ -68,6 +68,23 @@ class Tree
     return nil
   end
 
+  def find_return_node(key)
+    return nil if @root.nil?
+
+    current = @root
+    until current.nil?
+      return current if current.key == key
+
+      current = if key > current.key
+                  current.right
+                else
+                  current.left
+                end
+    end
+
+    return nil
+  end
+
   # Time Complexity: O(n)
   # >> hit every node in tree during traversal
   # Space Complexity: O(log n)
@@ -97,6 +114,7 @@ class Tree
   # >> O(n) if unbalanced
   def preorder
     return [] if @root.nil?
+
     nodes_arr = []
     preorder_helper(@root, nodes_arr)
 
@@ -118,6 +136,7 @@ class Tree
   # >> O(n) if unbalanced
   def postorder
     return [] if @root.nil?
+
     nodes_arr = []
     postorder_helper(@root, nodes_arr)
 
@@ -221,6 +240,8 @@ class Tree
   end
 
   def delete_helper(current_node, key_to_delete)
+    return if current_node.nil?
+
     # Need to search left subtree for node to delete
     if current_node.key > key_to_delete
       current_node.left = delete_helper(current_node.left, key_to_delete)
@@ -234,11 +255,11 @@ class Tree
         current_node = nil
       # Right child exists --> replace with the leftmost child of first right child
       elsif current_node.right
-        current_node = replacement_node_has_right_child(current_node.right)
+        current_node.key, current_node.value = replacement_node_has_right_child(current_node.right)
         current_node.right = delete_helper(current_node.right, current_node.key)
       # No right child --> replace with the rightmost child of first left child
       else
-        current_node = replacement_node_no_right_child(current_node.left)
+        current_node.key, current_node.value = replacement_node_no_right_child(current_node.left)
         current_node.left = delete_helper(current_node.left, current_node.key)
       end
     end
@@ -249,12 +270,12 @@ class Tree
   def replacement_node_has_right_child(current_node)
     current_node = current_node.left while current_node.left
     
-    return current_node
+    return current_node.key, current_node.value
   end
 
   def replacement_node_no_right_child(current_node)
     current_node = current_node.right while current_node.right
 
-    return current_node
+    return current_node.key, current_node.value
   end
 end
