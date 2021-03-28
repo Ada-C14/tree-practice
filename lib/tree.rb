@@ -16,13 +16,9 @@ class Tree
     @root = nil
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(logn)
+  # Space Complexity: O(logn)
   def add(key, value)
-
-    # wrong think about why
-    # @root = TreeNode.new(key, value) unless root
-    # return add_helper(@root, key, value)
 
     unless root
       @root = TreeNode.new(key, value)
@@ -40,8 +36,8 @@ class Tree
       current.right = add_helper(current.right, key, value)
     end
 
-    # needed idk why
-    # return current
+    # still working through why this needed
+    return current
 
   end
 
@@ -51,8 +47,8 @@ class Tree
     raise NotImplementedError
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n)
+  # Space Complexity: O(n^2)???? O(n) recursive calls but creating array of size n? - maybe O(2n?)
   def inorder
     tree_in_order = []
     return inorder_helper(tree_in_order, @root)
@@ -71,13 +67,35 @@ class Tree
   # Time Complexity: 
   # Space Complexity: 
   def preorder
-    raise NotImplementedError
+    tree_pre_order = []
+    return preorder_helper(@root, tree_pre_order)
+  end
+
+  def preorder_helper(current, tree)
+    return tree unless current
+
+    tree.push({:key=>current.key, :value=>current.value})
+    preorder_helper(current.left, tree)
+    preorder_helper(current.right, tree)
+
+    return tree
   end
 
   # Time Complexity: 
   # Space Complexity: 
   def postorder
-    raise NotImplementedError
+    tree_post_order = []
+    return postorder_helper(@root, tree_post_order)
+  end
+
+  def postorder_helper(current, tree)
+    return tree unless current
+
+    postorder_helper(current.left, tree)
+    postorder_helper(current.right, tree)
+    tree.push({:key=>current.key, :value=>current.value})
+
+    return tree
   end
 
   # Time Complexity: 
@@ -98,3 +116,15 @@ class Tree
     return "#{self.inorder}"
   end
 end
+
+# tree = Tree.new()
+# tree.add(5, "Peter")
+# print("#{tree}\n")
+
+# tree.add(3, "Paul")
+# print(tree)
+# p "#{tree.root.key}"
+
+# tree.add(1, "Mary")
+# print(tree)
+# p "#{tree.root.key}"
