@@ -44,7 +44,21 @@ class Tree
   # Time Complexity: 
   # Space Complexity: 
   def find(key)
-    raise NotImplementedError
+    return find_helper(@root, key)
+  end
+
+  def find_helper(current, key)
+    return current unless current
+    return current.value if key == current.key
+
+    if current.key < key
+      find_helper(current.right, key)
+    else
+      find_helper(current.left, key)
+    end
+    
+    # why isnt a return needed here?
+    # not working back up stack?
   end
 
   # Time Complexity: O(n)
@@ -117,14 +131,17 @@ class Tree
   end
 end
 
-# tree = Tree.new()
-# tree.add(5, "Peter")
+tree = Tree.new()
+# p tree.find(8)
+tree.add(5, "Peter")
 # print("#{tree}\n")
 
-# tree.add(3, "Paul")
+tree.add(3, "Paul")
 # print(tree)
 # p "#{tree.root.key}"
 
-# tree.add(1, "Mary")
+tree.add(1, "Mary")
 # print(tree)
 # p "#{tree.root.key}"
+
+p tree.find(1)

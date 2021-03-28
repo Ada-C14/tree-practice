@@ -16,7 +16,7 @@ describe Tree do
     tree
   }
 
-  xit "add & find values" do
+  it "add & find values" do
     tree.add(5, "Peter")
     expect(tree.find(5)).must_equal "Peter"
 
@@ -27,7 +27,7 @@ describe Tree do
     expect(tree.find(3)).must_equal "Paul"
   end
 
-  xit "can't find anything when the tree is empty" do
+  it "can't find anything when the tree is empty" do
     expect(tree.find(50)).must_be_nil
   end
 
