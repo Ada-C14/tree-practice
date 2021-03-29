@@ -124,4 +124,49 @@ describe Tree do
       expect(my_tree.height).must_equal 5
     end
   end
+
+  describe "delete" do 
+    it "won't delete anything for an empty tree" do
+      tree.delete(5)
+
+      expect(tree.bfs).must_equal []
+    end
+    
+    it "won't delete anything when not find the node" do 
+      tree_with_nodes.delete(100)
+
+      expect(tree_with_nodes.bfs).must_equal [{:key=>5, :value=>"Peter"}, {:key=>3, :value=>"Paul"}, 
+                                   {:key=>10, :value=>"Karla"}, {:key=>1, :value=>"Mary"}, 
+                                   {:key=>15, :value=>"Ada"}, {:key=>25, :value=>"Kari"}]
+    end
+
+    it "removes the node from the tree when delete the node w/o children" do 
+      tree_with_nodes.delete(1)
+
+      expect(tree_with_nodes.find(1)).must_be_nil
+      expect(tree_with_nodes.bfs).must_equal [{:key=>5, :value=>"Peter"}, {:key=>3, :value=>"Paul"}, 
+                                   {:key=>10, :value=>"Karla"}, {:key=>15, :value=>"Ada"}, {:key=>25, :value=>"Kari"}]
+    end
+
+    it "removes the node and replace it with its child when delete the node w/ a child" do 
+      tree_with_nodes.delete(3)
+      
+      expect(tree_with_nodes.find(3)).must_be_nil
+      expect(tree_with_nodes.bfs).must_equal [{:key=>5, :value=>"Peter"}, {:key=>1, :value=>"Mary"}, 
+                                   {:key=>10, :value=>"Karla"}, {:key=>15, :value=>"Ada"}, {:key=>25, :value=>"Kari"}]
+    end
+
+    it "removes the node and rearranges the tree to replace the node when delete a node w/ 2 children" do 
+      tree_with_nodes.add(8, "test1")
+      tree_with_nodes.add(14, "test2")
+      tree_with_nodes.add(11, "test3")
+
+      tree_with_nodes.delete(15)
+
+      expect(tree_with_nodes.find(15)).must_be_nil
+      expect(tree_with_nodes.bfs).must_equal [{:key=>5, :value=>"Peter"}, {:key=>3, :value=>"Paul"}, 
+                                   {:key=>10, :value=>"Karla"}, {:key=>1, :value=>"Mary"}, {:key=>8, :value=>"test1"},
+                                   {:key=>25, :value=>"Kari"}, {:key=>14, :value=>"test2"}, {:key=>11, :value=>"test3"}]
+    end
+  end
 end
