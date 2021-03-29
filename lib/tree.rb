@@ -17,7 +17,7 @@ class Tree
   end
 
   # Time Complexity: O(log n) for balanced tree/ O(n) for unbalanced tree,
-  #                  because the worst case scenario is to run thru the whole height of the binary tree to add a leaf,
+  #                  because the worst case scenario is to visit the whole height of the binary tree to add a leaf,
   #                  and it only takes half amount of the elements on the binary tree for searching.
   # Space Complexity: O(1), because the variables used is a constant.
   def add(key, value = nil)
@@ -43,7 +43,7 @@ class Tree
   end
 
   # Time Complexity: O(log n) for balanced tree/ O(n) for unbalanced tree,
-  #                  because the worst case scenario is to run thru the whole height of the binary tree to find a leaf,
+  #                  because the worst case scenario is to visit the whole height of the binary tree to find a leaf,
   #                  and it only takes half amount of the elements on the binary tree for searching.
   # Space Complexity: O(1), because the variables used is a constant. 
   def find(key)
@@ -62,8 +62,8 @@ class Tree
     return find
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n), it has to visit every node in the tree, and n is the number of the nodes, so it's O(n).
+  # Space Complexity: O(n), it calls stack and depends on the number of the nodes, also, the result stores every node in the tree, and n is the number of the nodes, so it's O(n).
   # left/root/right
   def inorder
     return inorder_helper(@root, [])
@@ -76,8 +76,8 @@ class Tree
     inorder_helper(root.right, result)
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n), it has to visit every node in the tree, and n is the number of the nodes, so it's O(n).
+  # Space Complexity: O(n), it calls stack and depends on the number of the nodes, also, the result stores every node in the tree, and n is the number of the nodes, so it's O(n).
   # root/left/right
   def preorder
     return preorder_helper(@root, [])
@@ -90,8 +90,8 @@ class Tree
     preorder_helper(root.right, result)
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n), it has to visit every node in the tree, and n is the number of the nodes, so it's O(n).
+  # Space Complexity: O(n), it calls stack and depends on the number of the nodes, also, the result stores every node in the tree, and n is the number of the nodes, so it's O(n).
   # left/right/root
   def postorder
     return postorder_helper(@root, [])
@@ -104,8 +104,8 @@ class Tree
     result.push({key: root.key, value: root.value})
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n), it has to visit every node in the tree, and n is the number of the nodes, so it's O(n).
+  # Space Complexity: O(n), it calls stack and depends on the height of the tree, and n is the height, so it's O(n).
   def height
     return height_helper(@root)
   end
@@ -118,18 +118,57 @@ class Tree
   end
 
   # Optional Method
-  # Time Complexity: 
-  # Space Complexity: 
-  def bfs
-    return bfs_helper(@root, [])
+  # Time Complexity: O(n), it has to visit every node in the tree, and n is the number of the nodes, so it's O(n).
+  # Space Complexity: O(n), the result stores every node in the tree, and n is the number of the nodes, so it's O(n).
+  # queue way
+  def bfs 
+    result = []
+    return result if @root.nil?
+    
+    queue = [@root]
+    result = [{key: @root.key, value: @root.value}]
+    while queue.length > 0
+      node = queue.shift
+      if node.left
+        queue.push(node.left)
+        result.push({key: node.left.key, value: node.left.value})
+      end
+      if node.right
+        queue.push(node.right)
+        result.push({key: node.right.key, value: node.right.value})
+      end
+    end
+    return result
   end
 
-  def bfs_helper(root, result)
-    return result if root.nil?
-    result.push({key: root.key, value: root.value})
-    left = bfs_helper(root.left, result)
-    right = bfs_helper(root.right, result)
+  # recursion way
+  # Time Complexity: O(n^2), it visits every node from level 1 to its level, and it would take (1+n)*n/2 for each node, and n is the height of the tree, so it's O(n^2).
+  # Space Complexity: O(n), it calls stack, so if it's a balanced tree, it would be O(log n), n is the height of the tree; and if it's an unbalanced tree, the worst case scenario would be O(n). However, the result stores every node in the tree, and n is the number of the nodes, so it's O(n).
+  def bfs_recursion
+    height = height_helper(@root)
+    result = []
+    (1..height+1).each do |level|
+      bfs_helper_node(@root, level, result)
+    end
     return result
+  end
+
+  def bfs_helper_node(tree, level, result)
+    if tree.nil?
+      return result 
+    elsif level == 1
+      return result.push({key: tree.key, value: tree.value})
+    else
+      bfs_helper_node(tree.left, level-1, result)
+      bfs_helper_node(tree.right, level-1, result)
+    end
+  end
+
+  # Optional Method
+  # Time Complexity: 
+  # Space Complexity: 
+  def delete
+    raise NotImplementedError
   end
 
   # Useful for printing
