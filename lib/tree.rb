@@ -18,9 +18,8 @@ class Tree
 
   # Time Complexity: 
   # Space Complexity: 
-  def add(key, value)
+  def add(key, value=nil)
     new_node = TreeNode.new(key, value)
-    current = @root
     if @root == nil 
       @root = new_node 
     else
@@ -117,14 +116,41 @@ class Tree
   # Time Complexity: 
   # Space Complexity: 
   def height
-    raise NotImplementedError
+    return height_helper(@root, 0)
   end
+
+  def height_helper(current, height)
+    return height if current == nil
+
+    max_left = height_helper(current.left, height + 1)
+    max_right = height_helper(current.right, height + 1)
+
+    return [max_left, max_right].max
+  end
+
 
   # Optional Method
   # Time Complexity: 
   # Space Complexity: 
   def bfs
-    raise NotImplementedError
+    return [] if @root == nil
+    result = []
+    queue = []
+    current = @root
+
+    while current != nil
+      result << {:key => current.key, :value => current.value}
+      if current.left
+        queue.push(current.left)
+      end
+      if current.right
+        queue.push(current.right)
+      end
+
+     current = queue.shift
+    end
+
+    return result
   end
 
   # Useful for printing
