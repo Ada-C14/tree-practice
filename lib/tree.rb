@@ -18,7 +18,7 @@ class Tree
 
   # Time Complexity: O(log n) for balanced tree/ O(n) for unbalanced tree,
   #                  because the worst case scenario is to visit the whole height of the binary tree to add a leaf,
-  #                  and it only takes half amount of the elements on the binary tree for searching.
+  #                  otherwise, it only takes half amount of the elements on the binary tree for searching.
   # Space Complexity: O(1), because the variables used is a constant.
   def add(key, value = nil)
     return @root = TreeNode.new(key, value) if @root.nil?
@@ -44,7 +44,7 @@ class Tree
 
   # Time Complexity: O(log n) for balanced tree/ O(n) for unbalanced tree,
   #                  because the worst case scenario is to visit the whole height of the binary tree to find a leaf,
-  #                  and it only takes half amount of the elements on the binary tree for searching.
+  #                  otherwise, it only takes half amount of the elements on the binary tree for searching.
   # Space Complexity: O(1), because the variables used is a constant. 
   def find(key)
     find = nil
@@ -165,10 +165,82 @@ class Tree
   end
 
   # Optional Method
-  # Time Complexity: 
-  # Space Complexity: 
-  def delete
-    raise NotImplementedError
+  # Time Complexity: O(log n) for balanced tree/ O(n) for unbalanced tree,
+  #                  because the worst case scenario is to visit the whole height of the binary tree to find a leaf and delete it, otherwise, it only takes half amount of the elements on the binary tree for searching and deleting.
+  # Space Complexity: O(1), because the variables used is a constant. 
+  # case 1. delete a node w/o children: remove the node from the tree
+  # case 2. delete a node w/ a child: remove the node and replace it with its child
+  # case 3. delete a node w/ 2 children: remove the node and rearrange the tree to replace the node
+  #         take the pointer.right.left...left to replace it.
+  def delete(key)
+    return nil if find(key).nil?
+    parent = nil
+    pointer = @root
+    while pointer && pointer.key != key
+      parent = pointer
+      if pointer.key < key
+        pointer = pointer.right
+      else
+        pointer = pointer.left
+      end
+    end
+
+    # case 1
+    if pointer.left.nil? && pointer.right.nil?
+      if pointer == @root
+        @root = nil
+      else
+        if parent.left == pointer
+          parent.left = nil
+        else
+          parent.right = nil
+        end
+      end
+    #case 3
+    elsif pointer.left && pointer.right
+      replace_parent, replace_child = delete_helper(pointer)
+      if replace_child.right
+        replace_parent.left = replace_child.right
+      end
+      replace_child.left = pointer.left
+      replace_child.right = pointer.right if replace_child != pointer.right
+      if pointer == @root
+        @root = replace_child
+      else
+        if parent.left == pointer
+          parent.left = replace_child
+        else
+          parent.right = replace_child
+        end
+      end
+    # case 2  
+    else  
+      if pointer.left
+        child = pointer.left
+      else
+        child = pointer.right
+      end
+      if pointer == @root
+        @root = child
+      else
+        if parent.left = pointer
+          parent.left = child
+        else
+          parent.right = child
+        end
+      end
+    end
+  end
+
+  # find the first right and then the leftmost leaf
+  def delete_helper(tree)
+    parent = tree
+    replacement = tree.right
+    while !replacement.left.nil?
+      parent = replacement
+      replacement = replacement.left
+    end
+    return parent, replacement
   end
 
   # Useful for printing
