@@ -16,16 +16,39 @@ class Tree
     @root = nil
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(log(n)) assuming that the tree is balanced, binary search will eliminate half of tree every time, otherwise O(n) like linked list
+  # Space Complexity: O(n) for stack calls
   def add(key, value)
-    raise NotImplementedError
+    return @root = add_helper(@root, key, value)
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  def add_helper(current, key, value)
+    return @root = TreeNode.new(key, value) if @root.nil?
+
+    if current.nil?
+      return current = TreeNode.new(key, value)
+    elsif key <= current.key   
+      current.left = add_helper(current.left, key, value)
+    else
+      current.right = add_helper(current.right, key, value)
+    end
+  end
+
+  # Time Complexity: O(log(n))/O(n)
+  # Space Complexity: O(n)
   def find(key)
-    raise NotImplementedError
+    return find_helper(@root, key)
+  end
+
+  def find_helper(current, key)
+    return nil if current.nil?
+    if key == current.key
+      return current.value
+    elsif key < current.key
+      return find_helper(current.left, key)
+    else
+      return find_helper(current.right, key)
+    end
   end
 
   # Time Complexity: 
