@@ -16,7 +16,7 @@ class Tree
     @root = nil
   end
 
-  # Time Complexity: O(log n)
+  # Time Complexity: O(log n) 
   # Space Complexity: O(log n)
   def add(key, value = nil)
     # raise NotImplementedError
@@ -40,8 +40,8 @@ class Tree
     return current
   end
 
-  # Time Complexity: O(log n)
-  # Space Complexity: O(log n)
+  # Time Complexity: O(log n) 
+  # Space Complexity: O(l)
   def find(key)
     return @root if @root.nil?
 
@@ -60,8 +60,8 @@ class Tree
     return current
   end
 
-  # Time Complexity: O(n)
-  # Space Complexity: O(n)
+  # Time Complexity: O(n) going through each node
+  # Space Complexity: O(n) creating an array
   def inorder
     # raise NotImplementedError
     return [] if @root.nil?
