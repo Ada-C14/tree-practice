@@ -18,7 +18,7 @@ class Tree
 
   # Time Complexity: O(log n) if balanced, O(n) if a linked-list type BST
   # Space Complexity: O(1)
-  def add(key, value)
+  def add(key, value = nil)
     new_node = TreeNode.new(key, value)
 
     @root = add_helper(root, new_node)
@@ -42,22 +42,20 @@ class Tree
     return nil if @root.nil?
 
     current = @root
-    found = false
 
-    while !found
+    while !current.nil?
       if key < current.key
         current = current.left
       elsif key > current.key
         current = current.right 
       else
         return current.value
-        found = true
       end
     end
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n)
+  # Space Complexity: O(n)
   def inorder
     return inorder_helper(root)
   end
@@ -65,31 +63,23 @@ class Tree
   def inorder_helper(node)
     bst_inorder = []
 
-    if node.nil?
-      node = @root
-    end
-
     return bst_inorder if node.nil?
 
-    bst_inorder += inorder_helper(node.left) if node.left # a
+    bst_inorder += inorder_helper(node.left) if node.left
     bst_inorder << { key: node.key, value: node.value }
     bst_inorder += inorder_helper(node.right) if node.right
 
     return bst_inorder
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n)
+  # Space Complexity: O(n)
   def preorder
     return preorder_helper(root)
   end
 
   def preorder_helper(node)
     bst_preorder = []
-
-    if node.nil?
-      node = @root
-    end
 
     return bst_preorder if node.nil?
 
@@ -100,18 +90,14 @@ class Tree
     return bst_preorder
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n)
+  # Space Complexity: O(n)
   def postorder
     return postorder_helper(root)
   end
 
   def postorder_helper(node)
     bst_postorder = []
-
-    if node.nil?
-      node = @root
-    end
 
     return bst_postorder if node.nil?
 
@@ -122,17 +108,34 @@ class Tree
     return bst_postorder
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n)
+  # Space Complexity: O(n)
   def height
-    raise NotImplementedError
+    return height_helper(root)
+  end
+
+  def height_helper(node)
+    node.nil? ? 0 : [ height_helper(node.left), height_helper(node.right) ].max + 1
   end
 
   # Optional Method
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n)
+  # Space Complexity: O(n)
   def bfs
-    raise NotImplementedError
+    return [] if @root.nil?
+
+    output = []
+    queue = [ root ]
+
+    until queue.empty?
+      node = queue.shift
+      output << { key: node.key, value: node.value }
+
+      queue << node.left if node.left
+      queue << node.right if node.right
+    end
+
+    return output
   end
 
   # Useful for printing
