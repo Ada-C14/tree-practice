@@ -138,11 +138,16 @@ class Tree
     height_helper(@root)
   end
 
+  
+
   # Optional Method
   # Time Complexity: 
   # Space Complexity: 
   def bfs
     # raise NotImplementedError
+    # return [] if @root.nil?
+
+    
   end
 
   # Useful for printing
