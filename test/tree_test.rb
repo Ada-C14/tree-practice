@@ -69,58 +69,58 @@ describe Tree do
     end
   end
 
-  # describe "breadth first search" do
-  #   it "will give an empty array for an empty tree" do
-  #     expect(tree.bfs).must_equal []
-  #   end
+  describe "breadth first search" do
+    it "will give an empty array for an empty tree" do
+      expect(tree.bfs).must_equal []
+    end
 
-  #   it "will return an array of a level-by-level output of the tree" do
-  #     expect(tree_with_nodes.bfs).must_equal [{:key=>5, :value=>"Peter"}, {:key=>3, :value=>"Paul"}, 
-  #                                  {:key=>10, :value=>"Karla"}, {:key=>1, :value=>"Mary"}, 
-  #                                  {:key=>15, :value=>"Ada"}, {:key=>25, :value=>"Kari"}]
-  #   end
-  # end
+    it "will return an array of a level-by-level output of the tree" do
+      expect(tree_with_nodes.bfs).must_equal [{:key=>5, :value=>"Peter"}, {:key=>3, :value=>"Paul"}, 
+                                   {:key=>10, :value=>"Karla"}, {:key=>1, :value=>"Mary"}, 
+                                   {:key=>15, :value=>"Ada"}, {:key=>25, :value=>"Kari"}]
+    end
+  end
 
-  # describe "height" do
-  #   it "will return 0 for an empty tree" do
-  #     my_tree = Tree.new
+  describe "height" do
+    it "will return 0 for an empty tree" do
+      my_tree = Tree.new
 
-  #     expect(my_tree.height).must_equal 0
-  #   end
+      expect(my_tree.height).must_equal 0
+    end
 
-  #   it "will return 1 for a tree of height 1" do
-  #     my_tree = Tree.new
+    it "will return 1 for a tree of height 1" do
+      my_tree = Tree.new
 
-  #     my_tree.add(100)
-  #     expect(my_tree.height).must_equal 1
-  #   end
+      my_tree.add(100)
+      expect(my_tree.height).must_equal 1
+    end
 
-  #   it "will report the height for a balanced tree" do
-  #     expect(tree_with_nodes.height).must_equal 3
-  #   end
+    it "will report the height for a tree with height 4 on right and 3 on left" do
+      expect(tree_with_nodes.height).must_equal 4
+    end
 
-  #   it "will report the height for unbalanced trees" do
-  #     my_tree = Tree.new
+    it "will report the height for unbalanced trees" do
+      my_tree = Tree.new
 
-  #     my_tree.add(100)
-  #     my_tree.add(110)
-  #     my_tree.add(120)
-  #     my_tree.add(130)
-  #     my_tree.add(140)
+      my_tree.add(100)
+      my_tree.add(110)
+      my_tree.add(120)
+      my_tree.add(130)
+      my_tree.add(140)
 
-  #     expect(my_tree.height).must_equal 5
+      expect(my_tree.height).must_equal 5
 
-  #     my_tree = Tree.new
+      my_tree = Tree.new
 
-  #     my_tree = Tree.new
+      my_tree = Tree.new
 
-  #     my_tree.add(100)
-  #     my_tree.add(90)
-  #     my_tree.add(80)
-  #     my_tree.add(70)
-  #     my_tree.add(60)
+      my_tree.add(100)
+      my_tree.add(90)
+      my_tree.add(80)
+      my_tree.add(70)
+      my_tree.add(60)
 
-  #     expect(my_tree.height).must_equal 5
-  #   end
-  # end
+      expect(my_tree.height).must_equal 5
+    end
+  end
 end

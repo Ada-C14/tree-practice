@@ -16,8 +16,8 @@ class Tree
     @root = nil
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(log n) if balanced, O(n) if a linked-list type BST
+  # Space Complexity: O(1)
   def add(key, value)
     new_node = TreeNode.new(key, value)
 
@@ -36,8 +36,8 @@ class Tree
     return current
   end 
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(log n) if balanced, O(n) if a linked-list type BST
+  # Space Complexity: O(1)
   def find(key)
     return nil if @root.nil?
 
