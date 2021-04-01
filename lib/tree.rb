@@ -16,8 +16,6 @@ class Tree
     @root = nil
   end
 
-  # extra info/state to carry over => helper function
-
   # Time Complexity: O(log n)
   # Space Complexity: O(log n)
   def add(key, value = nil)
@@ -108,7 +106,7 @@ class Tree
   end
 
   # Time Complexity: 
-  # Space Complexity: 
+  # Space Complexity: O(log n)
   def height
     return height_helper(@root)
   end
@@ -123,11 +121,27 @@ class Tree
   # Time Complexity: 
   # Space Complexity: 
   def bfs
-    return bfs_helper(@root, [])
+    traversal = []
+    h = self.height
+    i = 1
+    while i <= h
+      bfs_helper(@root, traversal, i)
+      i += 1
+    end
+
+    return traversal
   end
 
-  def bfs_helper(node, traversal)
+  def bfs_helper(node, traversal, level)
     return traversal if node.nil?
+    
+    if level == 1
+      traversal << {key: node.key, value: node.value}
+      return traversal
+    elsif level > 1
+      bfs_helper(node.left, traversal, level - 1)
+      bfs_helper(node.right, traversal, level - 1)
+    end
   end
 
   # Useful for printing
