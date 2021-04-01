@@ -16,8 +16,8 @@ class Tree
     @root = nil
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(log n)
+  # Space Complexity: O(log n)
   def add(key, value)
     # raise NotImplementedError
     new_node = TreeNode.new(key, value)
@@ -30,8 +30,8 @@ class Tree
 
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(log n)
+  # Space Complexity: O(log n)
   def find(key)
     return @root if @root.nil?
     current = @root
@@ -49,32 +49,32 @@ class Tree
     return current
   end
 
-  # Time Complexity:
-  # Space Complexity:
+ # Time Complexity: O(n)
+ # Space Complexity: O(n)
   def inorder
     # raise NotImplementedError
     return [] if @root.nil?
     return inorder_helper(@root, [])
   end
 
-  # Time Complexity:
-  # Space Complexity:
+  # Time Complexity: O(n)
+  # Space Complexity:O(n)
   def preorder
     # raise NotImplementedError
     return [] if @root.nil?
     return preorder_helper(@root, [])
   end
-
-  # Time Complexity:
-  # Space Complexity:
+  
+  # Time Complexity: O(n)
+  # Space Complexity: O(n)
   def postorder
     # raise NotImplementedError
     return [] if @root.nil?
     return postorder_helper(@root, [])
   end
 
-  # Time Complexity:
-  # Space Complexity:
+  # Time Complexity:O(n)
+  # Space Complexity:O(n)
   def height
     raise NotImplementedError
   end
