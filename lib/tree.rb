@@ -20,7 +20,7 @@ class Tree
   # Space Complexity: 
   def add(key, value)
     # raise NotImplementedError
-    new_node = TreeNode.new(key,value)
+    new_node = TreeNode.new(key, value)
 
     if @root.nil?
       @root = new_node
@@ -52,19 +52,25 @@ class Tree
   # Time Complexity:
   # Space Complexity:
   def inorder
-    raise NotImplementedError
+    # raise NotImplementedError
+    return [] if @root.nil?
+    return inorder_helper(@root, [])
   end
 
   # Time Complexity:
   # Space Complexity:
   def preorder
-    raise NotImplementedError
+    # raise NotImplementedError
+    return [] if @root.nil?
+    return preorder_helper(@root, [])
   end
 
   # Time Complexity:
   # Space Complexity:
   def postorder
-    raise NotImplementedError
+    # raise NotImplementedError
+    return [] if @root.nil?
+    return postorder_helper(@root, [])
   end
 
   # Time Complexity:
@@ -85,6 +91,8 @@ class Tree
     return "#{self.inorder}"
   end
 
+  private
+  # Helper Methods Here
   # Add node helper method
   def add_helper(current, new_node)
     return new_node if current.nil?
@@ -97,4 +105,30 @@ class Tree
     return current
   end
 
+  def inorder_helper(current, values)
+    return values if current.nil?
+    inorder_helper(current.left, values)
+    values << { key: current.key, value: current.value }
+    inorder_helper(current.right, values)
+  end
+
+  def preorder_helper(current, values)
+    return values if current.nil?
+
+    values << { key: current.key, value: current.value}
+    preorder_helper(current.left, values)
+    preorder_helper(current.right, values)
+
+    return values
+  end
+
+  def postorder_helper(current, values)
+    return values if current.nil?
+
+    postorder_helper(current.left, values)
+    postorder_helper(current.right, values)
+    values << { key: current.key, value: current.value}
+
+    return values
+  end
 end
