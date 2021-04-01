@@ -2,12 +2,12 @@ class TreeNode
   attr_reader :key, :value
   attr_accessor :left, :right
 
-   def initialize(key, val)
+  def initialize(key, val)
     @key = key
     @value = val
     @left = nil
     @right = nil
-   end
+  end
 end
 
 class Tree
@@ -16,29 +16,20 @@ class Tree
     @root = nil
   end
 
-
-
-  def add_helper(current,new_node)
-    return new_node if current.nil?
-
-    if new_node.key <= current.key
-      current.left = add_helper(current.left,new_node)
+  def add_helper(current, key,value)
+    return TreeNode.new(key,value) if current.nil?
+    if key <= current.key
+      current.left = add_helper(current.left, key, value)
     else 
-      current.right = add_helper(current.right, new_node)
+      current.right = add_helper(current.right, key, value)
     end 
-
     return current
+  end 
 
   # Time Complexity: 
   # Space Complexity: 
-  def add(key, value)
-    new_node = TreeNode.new(key,value)
-
-    if root.nil?
-      @root = new_node
-    else 
-      add_helper(@root, new_node)
-    end 
+  def add(key, value=nil)
+    @root = add_helper(@root,key,value )
   end
 
   # Time Complexity: 
