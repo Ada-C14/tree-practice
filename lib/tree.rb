@@ -87,7 +87,7 @@ class Tree
   end
 
   # Time Complexity: O(n)
-  # Space Complexity: O(n^2)???? O(n) recursive calls but creating array of size n? - maybe O(2n?)
+  # Space Complexity: O(n)
   def inorder
     tree_in_order = []
     return inorder_helper(tree_in_order, @root)
@@ -103,8 +103,8 @@ class Tree
     return tree
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n)
+  # Space Complexity: O(n)
   def preorder
     tree_pre_order = []
     return preorder_helper(@root, tree_pre_order)
@@ -120,8 +120,8 @@ class Tree
     return tree
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n)
+  # Space Complexity: O(n)
   def postorder
     tree_post_order = []
     return postorder_helper(@root, tree_post_order)
@@ -153,8 +153,8 @@ class Tree
   end
 
   # Optional Method
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n^2)
+  # Space Complexity: O(n)
   def bfs
     q = []
     tree_bfs = []
