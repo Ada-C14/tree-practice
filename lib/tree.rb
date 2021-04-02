@@ -35,32 +35,7 @@ class Tree
       current.right = add_helper(current.right, key, value)
     end
 
-    # still working through why this needed/what would happen with no return
     return current
-    # i think needed bc you assign current.left/right
-    # to the return of add_helper
-    # this assignment is needed because you will need
-    # to connect the new node to a leaf node
-    # (set that leaf node's .left/.right)
-    # so for a given current node, you need to know what
-    # it should be linked to (ie it's .left/right)
-    # which means that on the next iteration, just return
-    # that current's value to fill this in later
-    # ^ bad explanation - but if current = 97, and current.left is 91
-    # you need to return 91 on the next recursive call (when current is 91)
-    # so that way when you work back up the callstack, you'll know that when
-    # current is 97, set 97.left to be 91 (bc 91 is returned from helper(97.left))
-
-    # if you didn't return current
-    # just return -> going back up the callstack would be setting current.left/right to nil
-    # no return -> i think bc of implicit returns in ruby, it would just carry the
-    # assignment from the base case all the way up
-    # so like in find for ex, once you find it, it just carries that val all the way up
-    # when you're assigning, it takes the old leaf nodes assignment of .left/.right and just carries
-    # that all the way up
-    # this is why when i was playing around with it (without a return), in the case of adding a 3rd(+) node,
-    # the code would just set what root.left/right's left/right to be the node i was adding
-    # it basically takes that assignment from the base case and carries it all the way up
 
   end
 
@@ -79,11 +54,6 @@ class Tree
     else
       find_helper(current.left, key)
     end
-
-    # why isnt a return needed here?
-    # i think bc it just carries that return current all the way back up
-    # implicit returns in ruby
-
   end
 
   # Time Complexity: O(n)
@@ -153,7 +123,7 @@ class Tree
   end
 
   # Optional Method
-  # Time Complexity: O(n^2)
+  # Time Complexity: O(n*m)
   # Space Complexity: O(n)
   def bfs
     q = []
