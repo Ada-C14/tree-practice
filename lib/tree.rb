@@ -18,7 +18,7 @@ class Tree
 
   # Time Complexity: O(logn)
   # Space Complexity: O(logn)
-  def add(key, value)
+  def add(key, value = nil)
     unless root
       @root = TreeNode.new(key, value)
     else
@@ -137,27 +137,42 @@ class Tree
     return tree
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n)
+  # Space Complexity: O(n)
   def height
-    return 0 unless @root
-    left = height_helper(@root)
-    right = height_helper()
-
-
+    return height_helper(@root)
   end
 
-  def height_helper(current, count)
+  def height_helper(current)
+    return 0 unless current
 
-    # 
+    left_height = height_helper(current.left)
+    right_height = height_helper(current.right)
 
+    return left_height < right_height ? right_height + 1 : left_height + 1
   end
 
   # Optional Method
   # Time Complexity: 
   # Space Complexity: 
   def bfs
-    raise NotImplementedError
+    q = []
+    tree_bfs = []
+    return tree_bfs unless @root
+
+    q.push(@root)
+  
+    until q.empty?
+      current = q.shift
+
+      tree_bfs.push({:key=>current.key, :value=>current.value})
+
+      q.push(current.left) if current.left
+      q.push(current.right) if current.right
+    end
+
+    return tree_bfs
+
   end
 
   # Useful for printing
@@ -165,33 +180,3 @@ class Tree
     return "#{self.inorder}"
   end
 end
-
-tree = Tree.new()
-# p tree.find(8)
-tree.add(5, "Peter")
-# print("#{tree}\n")
-
-tree.add(3, "Paul")
-# print(tree)
-# p "#{tree.root.key}"
-
-# note this prints the root -> bc of the return current
-p tree.add(1, "Mary")
-# print(tree)
-# p "#{tree.root.key}"
-
-# p tree.find(1)
-
-# def huh(x)
-#   y = 0
-
-#   if x < 1
-#     y = 4
-#   else
-#     y = 3
-#   end
-#   x
-
-# end
-
-# p huh(9)
