@@ -16,8 +16,8 @@ class Tree
     @root = nil
   end
 
-  # Time Complexity: O(log n)
-  # Space Complexity: O(log n)
+  # Time Complexity: O(log n) if balanced; O(n) if not
+  # Space Complexity: O(log n) if balanced; O(n) if not
   def add(key, value = nil)
     if @root.nil?
       @root = TreeNode.new(key, value)
@@ -45,8 +45,8 @@ class Tree
     end
   end
 
-  # Time Complexity: O(log n)
-  # Space Complexity: O(log n)
+  # Time Complexity: O(log n) if balanced; O(n) if not
+  # Space Complexity: O(log n) if balanced; O(n) if not
   def find(key)
     find_helper(@root, key)
   end
@@ -63,8 +63,8 @@ class Tree
     end
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: visit all nodes => O(n)
+  # Space Complexity: array contains all nodes => O(n)
   def inorder
     return inorder_helper(@root, [])
   end
@@ -77,8 +77,8 @@ class Tree
     inorder_helper(node.right, traversal)
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n)
+  # Space Complexity: O(n)
   def preorder
     return preorder_helper(@root, [])
   end
@@ -91,8 +91,8 @@ class Tree
     preorder_helper(node.right, traversal)
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n)
+  # Space Complexity: O(n)
   def postorder
     return postorder_helper(@root, [])
   end
@@ -105,8 +105,8 @@ class Tree
     traversal << {key: node.key, value: node.value}
   end
 
-  # Time Complexity: 
-  # Space Complexity: O(log n)
+  # Time Complexity: visit all nodes => O(n)
+  # Space Complexity: O(log n) if balanced; O(n) if not
   def height
     return height_helper(@root)
   end
@@ -118,8 +118,8 @@ class Tree
   end
 
   # Optional Method
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n^2)
+  # Space Complexity: O(n)
   def bfs
     traversal = []
     h = self.height
