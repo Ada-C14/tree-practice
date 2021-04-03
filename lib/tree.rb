@@ -16,8 +16,8 @@ class Tree
     @root = nil
   end
 
-  # Time Complexity:
-  # Space Complexity: 
+  # Time Complexity: O(log n); although if the tree is not balanced, this could be O(n)
+  # Space Complexity: O(1)
   def add(key, value = nil)
     if @root.nil?
       @root = TreeNode.new(key, value)
@@ -49,7 +49,7 @@ class Tree
   end
 
 
-  # Time Complexity: 
+  # Time Complexity: O(log n); although if the tree is not balanced, this could be O(n)
   # Space Complexity: 
   def find(key)
     current = @root
@@ -65,8 +65,8 @@ class Tree
     return nil
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n)
+  # Space Complexity: O(n)
   def inorder
     array = []
     current = @root
@@ -85,8 +85,8 @@ class Tree
 
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n)
+  # Space Complexity: O(n)
   def preorder
     array = []
     current = @root
@@ -104,8 +104,8 @@ class Tree
 
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n)
+  # Space Complexity: O(n)
   def postorder
     array = []
     current = @root
@@ -124,8 +124,8 @@ class Tree
 
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(log n); although if the tree is not balanced, this could be O(n)
+  # Space Complexity: O(1)
   def height
     height_helper(@root)
   end
@@ -139,8 +139,9 @@ class Tree
   # Time Complexity: 
   # Space Complexity: 
   def bfs
-    raise NotImplementedError
+    # optional
   end
+
 
   # Useful for printing
   def to_s
