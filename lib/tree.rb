@@ -85,23 +85,23 @@ class Tree
 
   end
 
-
-  # def inorder
-  #
-  #   return [] if @root.nil?
-  #
-  #   current = @root
-  #
-  #   while current != nil
-  #
-  #   end
-  #
-  # end
-
   # Time Complexity: 
   # Space Complexity: 
   def preorder
-    raise NotImplementedError
+    array = []
+    current = @root
+    preorder_helper(array, current)
+  end
+
+  def preorder_helper(array, current)
+    return array if current.nil?
+    #middle
+    array << {:key => current.key, :value => current.value}
+    #left
+    preorder_helper(array, current.left)
+    #right
+    preorder_helper(array, current.right)
+
   end
 
   # Time Complexity: 
