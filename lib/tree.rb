@@ -18,7 +18,7 @@ class Tree
 
   # Time Complexity:
   # Space Complexity: 
-  def add(key, value)
+  def add(key, value = nil)
     if @root.nil?
       @root = TreeNode.new(key, value)
       return @root.value
@@ -127,7 +127,12 @@ class Tree
   # Time Complexity: 
   # Space Complexity: 
   def height
-    raise NotImplementedError
+    height_helper(@root)
+  end
+
+  def height_helper(root)
+    return 0 if root.nil?
+    [1 + height_helper(root.left), 1 + height_helper(root.right)].max
   end
 
   # Optional Method
