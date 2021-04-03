@@ -19,13 +19,23 @@ class Tree
   # Time Complexity: 
   # Space Complexity: 
   def add(key, value)
-    raise NotImplementedError
+
   end
 
   # Time Complexity: 
   # Space Complexity: 
   def find(key)
-    raise NotImplementedError
+    current = @root
+    while current != nil
+      if current.key <= key
+        return true if current.key == key
+        current = current.left
+      elsif current.key >= key
+        return true if current.key == key
+        current = current.right
+      end
+      return false
+    end
   end
 
   # Time Complexity: 
