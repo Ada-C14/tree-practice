@@ -19,23 +19,51 @@ class Tree
   # Time Complexity: 
   # Space Complexity: 
   def add(key, value)
+    if @root.nil?
+      @root = TreeNode.new(key, value)
+      return @root.value
+    end
+
+    current = @root
+
+    while key <= current.key || key > current.key
+      if key == current.key
+        "This key is already taken."
+      elsif key < current.key
+        if current.left.nil?
+          current.left = TreeNode.new(key,value)
+          return value
+        else
+          current = current.left
+        end
+      else
+        if current.right.nil?
+          current.right = TreeNode.new(key,value)
+          return value
+        else
+          current = current.right
+        end
+      end
+    end
 
   end
+
 
   # Time Complexity: 
   # Space Complexity: 
   def find(key)
+
     current = @root
     while current != nil
-      if current.key <= key
-        return true if current.key == key
+      if current.key == key
+        return current.value
+      elsif current.key > key
         current = current.left
-      elsif current.key >= key
-        return true if current.key == key
+      elsif current.key < key
         current = current.right
       end
-      return false
     end
+    return nil
   end
 
   # Time Complexity: 
