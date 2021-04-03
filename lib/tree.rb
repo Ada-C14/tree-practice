@@ -107,7 +107,21 @@ class Tree
   # Time Complexity: 
   # Space Complexity: 
   def postorder
-    raise NotImplementedError
+    array = []
+    current = @root
+    postorder_helper(array, current)
+  end
+
+  def postorder_helper(array, current)
+    return array if current.nil?
+
+    #left
+    postorder_helper(array, current.left)
+    #right
+    postorder_helper(array, current.right)
+    #middle
+    array << {:key => current.key, :value => current.value}
+
   end
 
   # Time Complexity: 
