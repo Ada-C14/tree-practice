@@ -16,7 +16,7 @@ class Tree
     @root = nil
   end
 
-  # Time Complexity: 
+  # Time Complexity:
   # Space Complexity: 
   def add(key, value)
     if @root.nil?
@@ -52,7 +52,6 @@ class Tree
   # Time Complexity: 
   # Space Complexity: 
   def find(key)
-
     current = @root
     while current != nil
       if current.key == key
@@ -69,8 +68,35 @@ class Tree
   # Time Complexity: 
   # Space Complexity: 
   def inorder
-    raise NotImplementedError
+    array = []
+    current = @root
+    inorder_helper(array, current)
   end
+
+  def inorder_helper(array, current)
+    return array if current.nil?
+
+    #left
+    inorder_helper(array, current.left)
+    #middle
+    array << {:key => current.key, :value => current.value}
+    #right
+    inorder_helper(array, current.right)
+
+  end
+
+
+  # def inorder
+  #
+  #   return [] if @root.nil?
+  #
+  #   current = @root
+  #
+  #   while current != nil
+  #
+  #   end
+  #
+  # end
 
   # Time Complexity: 
   # Space Complexity: 
