@@ -35,6 +35,8 @@ class Tree
     else
       current.right = add_helper(key, value, current.right)
     end
+
+    return current
   end
 
   # Time Complexity: O(log n)
@@ -50,30 +52,41 @@ class Tree
     end
   end
 
-  # Time Complexity:
-  # Space Complexity: 
+  # Time Complexity: O(n)
+  # Space Complexity: O(n)
   def inorder(current = @root, answer = [])
 
-    # Current
-    unless current.nil?
-      answer += inorder(current.left, answer)
-      return {key: current.key, value: current.value}
-      answer += inorder(current.right, answer)
-    end8
+    if current
+      inorder(current.left, answer)
+      answer.push({key: current.key, value: current.value})
+      inorder(current.right, answer)
+    end
 
     return answer
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
-  def preorder
-    raise NotImplementedError
+  # Time Complexity: O(n)
+  # Space Complexity: O(n)
+  def preorder(current = @root, answer = [])
+    if current
+      answer.push({key: current.key, value: current.value})
+      inorder(current.left, answer)
+      inorder(current.right, answer)
+    end
+
+    return answer
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
-  def postorder
-    raise NotImplementedError
+  # Time Complexity: O(n)
+  # Space Complexity: O(n)
+  def postorder(current = @root, answer = [])
+    if current
+      inorder(current.left, answer)
+      inorder(current.right, answer)
+      answer.push({key: current.key, value: current.value})
+    end
+
+    return answer
   end
 
   # Time Complexity: 
@@ -95,10 +108,11 @@ class Tree
   end
 end
 
-# tree = Tree.new
-# tree.add(5, "Peter")
-# tree.add(3, "Paul")
-# tree.add(1, "Mary")
-# tree.add(10, "Karla")
-# tree.add(15, "Ada")
-# tree.add(25, "Kari")
+tree = Tree.new
+tree.add(5, "Peter")
+tree.add(3, "Paul")
+tree.add(1, "Mary")
+tree.add(10, "Karla")
+tree.add(15, "Ada")
+tree.add(25, "Kari")
+puts tree.preorder
