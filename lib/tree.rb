@@ -87,9 +87,9 @@ class Tree
 
   # Time Complexity: O(n)
   # >> hit every node in tree during traversal
-  # Space Complexity: O(log n)
-  # >> go down one side of tree at a time --> stack has height # of levels
-  # >> O(n) if unbalanced
+  # Space Complexity: O(n)
+  # >> O(log n) - go down one side of tree at a time --> stack has height # of levels (O(n) if unbalanced)
+  # >> O(n) to store all visited nodes in nodes_arr
   def inorder
     return [] if @root.nil?
 
@@ -109,9 +109,9 @@ class Tree
 
   # Time Complexity: O(n)
   # >> hit every node in tree during traversal
-  # Space Complexity: O(log n)
-  # >> go down one side of tree at a time --> stack has height # of levels
-  # >> O(n) if unbalanced
+  # Space Complexity: O(n)
+  # >> O(log n) - go down one side of tree at a time --> stack has height # of levels (O(n) if unbalanced)
+  # >> O(n) to store all visited nodes in nodes_arr
   def preorder
     return [] if @root.nil?
 
@@ -131,9 +131,9 @@ class Tree
 
   # Time Complexity: O(n)
   # >> hit every node in tree during traversal
-  # Space Complexity: O(log n)
-  # >> go down one side of tree at a time --> stack has height # of levels
-  # >> O(n) if unbalanced
+  # Space Complexity: O(n)
+  # >> O(log n) - go down one side of tree at a time --> stack has height # of levels (O(n) if unbalanced)
+  # >> O(n) to store all visited nodes in nodes_arr
   def postorder
     return [] if @root.nil?
 
