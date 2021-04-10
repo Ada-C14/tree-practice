@@ -55,22 +55,52 @@ class Tree
     end
   end
 
-  # Time Complexity:
-  # Space Complexity:
+  # Time Complexity: O(n)
+  # Space Complexity: O(n)
   def inorder
-    raise NotImplementedError
+    result = []
+    inorder_helper(@root, result)
+    result
   end
 
-  # Time Complexity:
-  # Space Complexity:
+  def inorder_helper(node, result)
+    return if node.nil?
+
+    inorder_helper(node.left, result)
+    result.push({ key: node.key, value: node.value })
+    inorder_helper(node.right, result)
+  end
+
+  # Time Complexity: O(n)
+  # Space Complexity: O(n)
   def preorder
-    raise NotImplementedError
+    result = []
+    preorder_helper(@root, result)
+    result
   end
 
-  # Time Complexity:
-  # Space Complexity:
+  def preorder_helper(node, result)
+    return if node.nil?
+
+    result.push({ key: node.key, value: node.value })
+    preorder_helper(node.left, result)
+    preorder_helper(node.right, result)
+  end
+
+  # Time Complexity: O(n)
+  # Space Complexity: O(n)
   def postorder
-    raise NotImplementedError
+    result = []
+    postorder_helper(@root, result)
+    result
+  end
+
+  def postorder_helper(node, result)
+    return if node.nil?
+
+    postorder_helper(node.left, result)
+    postorder_helper(node.right, result)
+    result.push({ key: node.key, value: node.value })
   end
 
   # Time Complexity:
