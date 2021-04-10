@@ -103,17 +103,23 @@ class Tree
     result.push({ key: node.key, value: node.value })
   end
 
-  # Time Complexity:
-  # Space Complexity:
+  # Time Complexity: O(n)
+  # Space Complexity: O(n)
   def height
-    raise NotImplementedError
+    height_helper(@root, 0)
+  end
+
+  def height_helper(node, steps)
+    return steps if node.nil?
+
+    [height_helper(node.left, steps + 1), height_helper(node.right, steps + 1)].max
   end
 
   # Optional Method
   # Time Complexity:
   # Space Complexity:
   def bfs
-    raise NotImplementedError
+    return [] if @root.nil?
   end
 
   # Useful for printing
