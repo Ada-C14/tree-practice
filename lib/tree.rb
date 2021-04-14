@@ -12,30 +12,57 @@ end
 
 class Tree
   attr_reader :root
+  
   def initialize
     @root = nil
   end
 
-  def add_helper(current, key,value)
-    return TreeNode.new(key,value) if current.nil?
-    if key <= current.key
-      current.left = add_helper(current.left, key, value)
+  def add_helper(current_node, new_node)
+    return new_node if current.nil?
+
+    if new_node.key <= current_node.key
+      current_node.left = add_helper(current_node.left, new_node)
     else 
-      current.right = add_helper(current.right, key, value)
+      current_node.right = add_helper(current_node.right, new_node)
     end 
-    return current
+
+    return current_node
   end 
 
-  # Time Complexity: 
-  # Space Complexity: 
-  def add(key, value=nil)
-    @root = add_helper(@root,key,value )
+  # Time Complexity: o(log(n))
+  # Space Complexity: o(1)
+  def add(key, value = nil)
+    # raise NotImplementedError
+    new_node = TreeNode.new(key, value)
+    if @root.nil?
+      @root = new_nodes
+    else
+      add_helper(@root, new_node)
+    end
   end
+
+  def find_helper(current_node,key)
+    return nil if current_node.nil? 
+
+    if current_node.key == key
+      return current_node.key
+    elsif key < current_node.key
+      find_helper(current_node, key)
+    else 
+      find_helper(current_node, key)
+    end 
+  end 
+
 
   # Time Complexity: 
   # Space Complexity: 
   def find(key)
-    raise NotImplementedError
+    # raise NotImplementedError
+    if @root.nil?
+      return nil
+    else
+      return find_helper(@root, key)
+    end 
   end
 
   # Time Complexity: 
