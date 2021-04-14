@@ -111,12 +111,3 @@ class Tree
     return "#{self.inorder}"
   end
 end
-
-tree = Tree.new
-tree.add(5, "Peter")
-tree.add(3, "Paul")
-tree.add(1, "Mary")
-tree.add(10, "Karla")
-tree.add(15, "Ada")
-tree.add(25, "Kari")
-puts tree.preorder
