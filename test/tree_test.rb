@@ -51,7 +51,7 @@ describe Tree do
     end
 
     it "will return the tree in preorder" do
-      expect(tree_with_nodes.preorder).must_equal [{:key=>5, :value=>"Peter"}, {:key=>3, :value=>"Paul"}, 
+      expect(tree_with_nodes.preorder).must_equal [{:key=>5, :value=>"Peter"}, {:key=>3, :value=>"Paul"},
                                         {:key=>1, :value=>"Mary"}, {:key=>10, :value=>"Karla"}, 
                                         {:key=>15, :value=>"Ada"}, {:key=>25, :value=>"Kari"}]
     end
@@ -91,7 +91,7 @@ describe Tree do
     it "will return 1 for a tree of height 1" do
       my_tree = Tree.new
 
-      my_tree.add(100)
+      my_tree.add(100, 100)
       expect(my_tree.height).must_equal 1
     end
 
@@ -102,11 +102,11 @@ describe Tree do
     it "will report the height for unbalanced trees" do
       my_tree = Tree.new
 
-      my_tree.add(100)
-      my_tree.add(110)
-      my_tree.add(120)
-      my_tree.add(130)
-      my_tree.add(140)
+      my_tree.add(100, 100)
+      my_tree.add(110, 110)
+      my_tree.add(120, 120)
+      my_tree.add(130, 130)
+      my_tree.add(140, 140)
 
       expect(my_tree.height).must_equal 5
 
@@ -114,11 +114,11 @@ describe Tree do
 
       my_tree = Tree.new
 
-      my_tree.add(100)
-      my_tree.add(90)
-      my_tree.add(80)
-      my_tree.add(70)
-      my_tree.add(60)
+      my_tree.add(100, 100)
+      my_tree.add(90, 90)
+      my_tree.add(80, 80)
+      my_tree.add(70, 70)
+      my_tree.add(60, 60)
 
       expect(my_tree.height).must_equal 5
     end
