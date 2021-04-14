@@ -70,8 +70,8 @@ class Tree
   def preorder(current = @root, answer = [])
     if current
       answer.push({key: current.key, value: current.value})
-      inorder(current.left, answer)
-      inorder(current.right, answer)
+      preorder(current.left, answer)
+      preorder(current.right, answer)
     end
 
     return answer
@@ -81,18 +81,22 @@ class Tree
   # Space Complexity: O(n)
   def postorder(current = @root, answer = [])
     if current
-      inorder(current.left, answer)
-      inorder(current.right, answer)
+      postorder(current.left, answer)
+      postorder(current.right, answer)
       answer.push({key: current.key, value: current.value})
     end
 
     return answer
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
-  def height
-    raise NotImplementedError
+  # Time Complexity: O(n)
+  # Space Complexity: O(n)
+  def height(current = @root)
+    unless current
+      return 0
+    end
+
+    return 1 + [height(current.left), height(current.right)].max
   end
 
   # Optional Method
