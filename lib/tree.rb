@@ -97,10 +97,20 @@ class Tree
     return preorder_helper(@root, [])
   end
 
+  def postorder_helper(current, values)
+    return values if current.nil?
+
+    postorder_helper(current.left, values)
+    postorder_helper(current.right, values)
+    values.push({key: current.key, value: current.value})
+    return values
+  end
+
   # Time Complexity: 
   # Space Complexity: 
   def postorder
-    raise NotImplementedError
+    return [] if @root.nil?
+    return postorder_helper(@root, [])
   end
 
   # Time Complexity: 
