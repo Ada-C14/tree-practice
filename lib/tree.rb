@@ -18,11 +18,11 @@ class Tree
   end
 
   def add_helper(current_node, new_node)
-    return new_node if current.nil?
+    return new_node if current_node.nil?
 
-    if new_node.key <= current_node.key
+    if new_node.key < current_node.key
       current_node.left = add_helper(current_node.left, new_node)
-    else 
+    elsif new_node.key > current_node.key
       current_node.right = add_helper(current_node.right, new_node)
     end 
 
@@ -32,10 +32,9 @@ class Tree
   # Time Complexity: o(log(n))
   # Space Complexity: o(1)
   def add(key, value = nil)
-    # raise NotImplementedError
     new_node = TreeNode.new(key, value)
     if @root.nil?
-      @root = new_nodes
+      @root = new_node
     else
       add_helper(@root, new_node)
     end
@@ -45,11 +44,11 @@ class Tree
     return nil if current_node.nil? 
 
     if current_node.key == key
-      return current_node.key
-    elsif key < current_node.key
-      find_helper(current_node, key)
-    else 
-      find_helper(current_node, key)
+      return current_node.value
+    elsif key <= current_node.key
+      find_helper(current_node.left, key)
+    else key > current_node.key
+      return find_helper(current_node.right, key)
     end 
   end 
 
