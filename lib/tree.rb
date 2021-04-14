@@ -122,8 +122,8 @@ class Tree
     return [leftmax, rightmax].max
   end 
   
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: o(n)
+  # Space Complexity: o(n)
   def height
     return height_helper(@root, 0)
   end
