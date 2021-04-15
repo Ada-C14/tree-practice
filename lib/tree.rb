@@ -19,7 +19,7 @@ class Tree
   # Time Complexity: 
   # Space Complexity: 
   def add(key, value)
-    raise NotImplementedError
+    @root = add_helper(@root, key, value)
   end
 
   # Time Complexity: 
@@ -63,4 +63,18 @@ class Tree
   def to_s
     return "#{self.inorder}"
   end
+end
+
+# Helper methods
+def add_helper(current, key, value = nil)
+  if current.nil?
+    current = TreeNode.new(key, value)
+  elsif key >= current.key
+    current.right = add_helper(current.right, key, value)
+  else
+    current.left = add_helper(current.left, key, value)
+  end
+  
+  return current
+
 end
