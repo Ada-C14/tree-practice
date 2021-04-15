@@ -40,9 +40,8 @@ class Tree
   end
 
   def add(key, value = nil)
-    #what should I do to associate the value to the key when building the binaty tree search?
     if @root.nil?
-      @root = TreeNode.new(key,value) #?? // what about the value?
+      @root = TreeNode.new(key,value) 
       return @root
     else
       add_helper(key, value, @root)
@@ -50,14 +49,29 @@ class Tree
 
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n)
+  # Space Complexity: O(1)
   def find(key)
-    raise NotImplementedError
+    if @root.nil?
+      return nil
+    else
+      return find_helper(key, @root)
+    end
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  def find_helper(key, current)
+    return nil if current.nil?
+    if current.key == key
+      return current.value
+    elsif current.key > key
+      find_helper(key, current.left)
+    else
+      find_helper(key, current.right)
+    end
+  end
+
+  # Time Complexity: O(n)
+  # Space Complexity: O(n)
 
   def inorder(current = @root, values = [])  
     if current.nil?
@@ -65,21 +79,48 @@ class Tree
     end
 
     inorder(current.left, values)
-    values.push(current.value)
+    values.push({key: current.key, value: current.value})
     inorder(current.right, values)
     return values
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
-  def preorder
-    raise NotImplementedError
+  # Time Complexity: O(n)
+  # Space Complexity: O(n)
+
+  def preorder_helper(current, values)
+    return values if current.nil?
+
+    values.push({key: current.key, value: current.value})
+    preorder_helper(current.left, values)
+    preorder_helper(current.right, values)
+    
+    return values
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+
+  def preorder
+    current = @root
+    values = []
+    return preorder_helper(current, values)
+  end
+
+ # Time Complexity: O(n)
+  # Space Complexity: O(n)
+
+  def postorder_helper(current, values)
+    return values if current.nil?
+
+    postorder_helper(current.left, values)
+    postorder_helper(current.right, values)
+    values.push({key: current.key, value: current.value})
+
+    return values
+  end
+
   def postorder
-    raise NotImplementedError
+    current = @root
+    values = []
+    return postorder_helper(current, values)
   end
 
   # Time Complexity: o(n)
@@ -99,10 +140,30 @@ class Tree
   end
 
   # Optional Method
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n) if tree is not balanced; O(log(n)) if it's balanced
+  # Space Complexity: o(n)
   def bfs
-    raise NotImplementedError
+    values = []
+    h = height
+    i = 1
+    while i <= h
+      bfs_helper(@root, i, values)
+      i += 1
+    end
+
+    return values
+  end
+
+  def bfs_helper(current, level, values)
+    return values if current.nil?
+
+    if level == 1
+      values.push({key: current.key, value: current.value})
+    elsif level > 1
+      bfs_helper(current.left, level - 1, values)
+      bfs_helper(current.right, level - 1, values)
+    end
+    return values
   end
 
   # Useful for printing
