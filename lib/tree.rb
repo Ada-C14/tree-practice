@@ -34,16 +34,16 @@ class Tree
     inorder_helper(@root, [])
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n)
+  # Space Complexity: O(n)
   def preorder
     preorder_helper(@root, [])
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n)
+  # Space Complexity: O(n)
   def postorder
-    raise NotImplementedError
+    postorder_helper(@root, [])
   end
 
   # Time Complexity: 
@@ -113,4 +113,16 @@ def preorder_helper(node, array)
   }
   preorder_helper(node.left, array)
   preorder_helper(node.right, array)
+end
+
+def postorder_helper(node, array)
+  # Left, Right, Current
+  return array if node.nil?
+
+  postorder_helper(node.left, array)
+  postorder_helper(node.right, array)
+  array << {
+    key: node.key,
+    value: node.value
+  }
 end
