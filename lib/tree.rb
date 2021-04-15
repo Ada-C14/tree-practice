@@ -138,11 +138,6 @@ class Tree
     else
       return right_height + 1
     end
-    # return [left_height, right_height].max
-    # left_height = height_helper(current.left) + 1
-    # right_height = height_helper(current.right) + 1
-    # return [left_height, right_height].max
-    # return 1 + [height_helper(current.left),height_helper(current.right)].max 
   end
 
 
