@@ -28,8 +28,8 @@ class Tree
     find_helper(@root,key)
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n)
+  # Space Complexity: O(n)
   def inorder
     inorder_helper(@root, [])
   end
@@ -37,7 +37,7 @@ class Tree
   # Time Complexity: 
   # Space Complexity: 
   def preorder
-    raise NotImplementedError
+    preorder_helper(@root, [])
   end
 
   # Time Complexity: 
@@ -92,7 +92,7 @@ def find_helper(current, key)
 end
 
 def inorder_helper(node, array)
-  # Current, Left, Right
+  # Left, Current, Right
   return array if node.nil?
 
   inorder_helper(node.left, array)
@@ -101,4 +101,16 @@ def inorder_helper(node, array)
     value: node.value
   }
   inorder_helper(node.right, array)
+end
+
+def preorder_helper(node, array)
+  # Current, Left, Right
+  return array if node.nil?
+
+  array << {
+    key: node.key,
+    value: node.value
+  }
+  preorder_helper(node.left, array)
+  preorder_helper(node.right, array)
 end
