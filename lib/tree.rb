@@ -73,6 +73,8 @@ class Tree
     return values
   end 
 
+
+
   # Time Complexity: 
   # Space Complexity: 
   def preorder
@@ -110,7 +112,6 @@ class Tree
   def height
     return 0 if @root.nil?
     return height_helper(@root)
-
   end
 
   def height_helper(current_node)
