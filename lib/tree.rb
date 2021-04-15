@@ -16,8 +16,8 @@ class Tree
     @root = nil
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(log n)
+  # Space Complexity: O(log n)
   def add(key, value)
     @root = add_helper(@root, key, value)
   end
@@ -25,7 +25,7 @@ class Tree
   # Time Complexity: 
   # Space Complexity: 
   def find(key)
-    raise NotImplementedError
+    find_helper(@root,key)
   end
 
   # Time Complexity: 
@@ -77,4 +77,16 @@ def add_helper(current, key, value = nil)
   
   return current
 
+end
+
+def find_helper(current, key)
+  return nil if current.nil?
+
+  if key == current.key
+    return current.value
+  elsif key > current.key
+    return find_helper(current.right, key)
+  elsif key < current.key
+    return find_helper(current.left, key)
+  end
 end
