@@ -22,8 +22,8 @@ class Tree
     @root = add_helper(@root, key, value)
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(log n)
+  # Space Complexity: O(log n)
   def find(key)
     find_helper(@root,key)
   end
@@ -31,7 +31,7 @@ class Tree
   # Time Complexity: 
   # Space Complexity: 
   def inorder
-    raise NotImplementedError
+    inorder_helper(@root, [])
   end
 
   # Time Complexity: 
@@ -89,4 +89,16 @@ def find_helper(current, key)
   elsif key < current.key
     return find_helper(current.left, key)
   end
+end
+
+def inorder_helper(node, array)
+  # Current, Left, Right
+  return array if node.nil?
+
+  inorder_helper(node.left, array)
+  array << {
+    key: node.key,
+    value: node.value
+  }
+  inorder_helper(node.right, array)
 end
