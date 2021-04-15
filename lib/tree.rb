@@ -68,8 +68,8 @@ class Tree
     end 
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n)
+  # Space Complexity: O(n)
     # left-root-right
   def inorder
     # current = @root
@@ -87,8 +87,8 @@ class Tree
   end
 
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n)
+  # Space Complexity: O(n)
     # root-left-right
   def preorder
     preorder_helper(@root, [])
@@ -104,8 +104,8 @@ class Tree
     return values
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n)
+  # Space Complexity: O(n)
     # left-right-root
   def postorder
     postorder_helper(@root, [])
@@ -122,7 +122,7 @@ class Tree
   end
 
   # Time Complexity: O(n)^2
-  # Space Complexity: 
+  # Space Complexity: O(n)
   def height
     # raise NotImplementedError
     height_helper(@root)
