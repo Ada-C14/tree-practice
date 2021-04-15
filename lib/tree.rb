@@ -18,7 +18,7 @@ class Tree
 
   # Time Complexity: O(log n)
   # Space Complexity: O(log n)
-  def add(key, value)
+  def add(key, value = nil)
     @root = add_helper(@root, key, value)
   end
 
@@ -49,7 +49,7 @@ class Tree
   # Time Complexity: 
   # Space Complexity: 
   def height
-    raise NotImplementedError
+    height_helper(@root)
   end
 
   # Optional Method
@@ -125,4 +125,13 @@ def postorder_helper(node, array)
     key: node.key,
     value: node.value
   }
+end
+
+def height_helper(node)
+  return 0 if node.nil?
+
+  right_count = height_helper(node.right) + 1
+  left_count = height_helper(node.left) + 1
+
+  return [right_count, left_count].max
 end
