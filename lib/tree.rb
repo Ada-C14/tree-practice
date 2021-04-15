@@ -46,8 +46,8 @@ class Tree
     postorder_helper(@root, [])
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n)
+  # Space Complexity: O(n)
   def height
     height_helper(@root)
   end
