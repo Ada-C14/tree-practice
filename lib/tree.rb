@@ -136,7 +136,7 @@ class Tree
   end  
 
   # Time Complexity: O(n)
-  # Space Complexity: O(n)
+  # Space Complexity: O(log n) if balanced
   def height
     return 0 if @root.nil?
     current = @root
