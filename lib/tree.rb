@@ -167,10 +167,24 @@ class Tree
   end
 
   # Optional Method
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n^2) due to use of .shift 
+  # Space Complexity: O(n)
+  # Solution from class
   def bfs
-    raise NotImplementedError
+    return [] if @root.nil? 
+
+    queue = [root]
+    output = []
+
+    until queue.empty?
+      node = queue.shift 
+      output << { key: node.key, value: node.value }
+      
+      queue << node.left if node.left 
+      queue << node.right if node.right 
+    end
+
+    return output 
   end
 
   # Useful for printing
