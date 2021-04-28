@@ -91,7 +91,7 @@ describe Tree do
     it "will return 1 for a tree of height 1" do
       my_tree = Tree.new
 
-      my_tree.add(100)
+      my_tree.add(100, "bruno")
       expect(my_tree.height).must_equal 1
     end
 
@@ -102,11 +102,11 @@ describe Tree do
     it "will report the height for unbalanced trees" do
       my_tree = Tree.new
 
-      my_tree.add(100)
-      my_tree.add(110)
-      my_tree.add(120)
-      my_tree.add(130)
-      my_tree.add(140)
+      my_tree.add(100, "bella")
+      my_tree.add(110, "rocky")
+      my_tree.add(120, "snowball")
+      my_tree.add(130, "mr. whiskers")
+      my_tree.add(140, "bebe")
 
       expect(my_tree.height).must_equal 5
 
@@ -114,11 +114,11 @@ describe Tree do
 
       my_tree = Tree.new
 
-      my_tree.add(100)
-      my_tree.add(90)
-      my_tree.add(80)
-      my_tree.add(70)
-      my_tree.add(60)
+      my_tree.add(100, "bruno")
+      my_tree.add(90, "bella")
+      my_tree.add(80, "arbor")
+      my_tree.add(70, "teal")
+      my_tree.add(60, "josh")
 
       expect(my_tree.height).must_equal 5
     end
