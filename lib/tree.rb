@@ -90,18 +90,17 @@ class Tree
   # Space Complexity: O(n)
   def inorder
     tree_in_order = []
-    return inorder_helper(tree_in_order, @root)
+    inorder_helper(tree_in_order, @root)
   end
 
   def inorder_helper(tree, current)
-    # needed to ensure don't return nil in case of empty tree
     return tree unless current
 
     inorder_helper(tree, current.left)
     tree.push({:key=>current.key, :value=>current.value})
     inorder_helper(tree, current.right)
 
-    return tree
+    # return tree
   end
 
   # Time Complexity: O(n)
@@ -194,4 +193,22 @@ def test(x, y)
   # return
 end
 
-p test(1, 2)
+# p test(1, 2)
+
+
+tree = Tree.new()
+tree.add(5, "5")
+tree.add(3, "3")
+tree.add(1, "1")
+#     5
+#   3
+# 1
+p tree.inorder
+
+tree = Tree.new()
+tree.add(1, "1")
+tree.add(3, "3")
+tree.add(5, "5")
+    #   1
+    # 3   5
+p tree.inorder
