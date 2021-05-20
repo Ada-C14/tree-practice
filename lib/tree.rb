@@ -120,28 +120,48 @@ class Tree
   # Optional Method
   # Time Complexity: O(n^2)
   # Space Complexity: O(n)
+  # def bfs
+  #   traversal = []
+  #   h = self.height
+  #   i = 1
+  #   while i <= h
+  #     bfs_helper(@root, traversal, i)
+  #     i += 1
+  #   end
+
+  #   return traversal
+  # end
+
+  # def bfs_helper(node, traversal, level)
+  #   return traversal if node.nil?
+    
+  #   if level == 1
+  #     traversal << {key: node.key, value: node.value}
+  #     return traversal
+  #   elsif level > 1
+  #     bfs_helper(node.left, traversal, level - 1)
+  #     bfs_helper(node.right, traversal, level - 1)
+  #   end
+  # end
+  
   def bfs
     traversal = []
-    h = self.height
-    i = 1
-    while i <= h
-      bfs_helper(@root, traversal, i)
-      i += 1
+    return traversal if @root.nil?
+
+    bfs_helper(@root, traversal)
+  end
+
+  def bfs_helper(node, traversal)
+    queue = Queue.new
+    queue.enq(node)
+    while !queue.empty?
+      current_node = queue.deq(node)
+      traversal << {key: current_node.key, value: current_node.value}
+      queue.enq(current_node.left) if current_node.left
+      queue.enq(current_node.right) if current_node.right
     end
 
     return traversal
-  end
-
-  def bfs_helper(node, traversal, level)
-    return traversal if node.nil?
-    
-    if level == 1
-      traversal << {key: node.key, value: node.value}
-      return traversal
-    elsif level > 1
-      bfs_helper(node.left, traversal, level - 1)
-      bfs_helper(node.right, traversal, level - 1)
-    end
   end
 
   # Useful for printing
