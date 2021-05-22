@@ -16,14 +16,32 @@ class Tree
     @root = nil
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity:
+  # Space Complexity:
   def add(key, value)
-    raise NotImplementedError
+    new_node = TreeNode.new(key, value)
+
+    if root.nil?
+      @root = new_node
+    else
+      add_helper(@root, new_node)
+    end
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  def add_helper(current, new_node)
+    return new_node if current.nil?
+
+    if new_node.value <= current.value
+      current.left = add_helper(current.left, new_node)
+    else
+      current.right > add_helper(current.right, new_node)
+    end
+
+    return current
+  end
+
+  # Time Complexity:
+  # Space Complexity:
   def find(key)
     raise NotImplementedError
   end
