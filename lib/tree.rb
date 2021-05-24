@@ -143,10 +143,26 @@ class Tree
 
 # **********************************************************************
   # Optional Method
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n) Does shift add time? O(n)^2?
+  # Space Complexity: O(n)
   def bfs
-    raise NotImplementedError
+    return [] if @root.nil?
+
+    to_be_chkd = [@root]
+    output = []
+
+    while to_be_chkd.length > 0
+      current = to_be_chkd.shift
+      # argument
+      output.push({:key=>current.key, :value=>current.value})
+      if current.left != nil
+        to_be_chkd.push(current.left)
+      end
+      if current.right != nil
+        to_be_chkd.push(current.right)
+      end
+    end
+    return output
   end
 
   # Useful for printing
