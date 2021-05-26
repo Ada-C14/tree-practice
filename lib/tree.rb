@@ -100,11 +100,6 @@ class Tree
 		return values
 	end
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> e04d7e7a7650d2a67ba57aabf64c37cdc1f08916
   # Time Complexity: O(n)
   # Space Complexity: O(n) for call stack
   def postorder
@@ -175,4 +170,52 @@ class Tree
   def to_s
     return "#{self.inorder}"
   end
+
+	# in order traversal without recursion
+	# https://www.techiedelight.com/find-inorder-predecessor-given-key-bst/#:~:text=To%20find%20which%20ancestors%20are,not%20exist%20for%20the%20node.
+	# https://www.youtube.com/watch?v=wGXB9OWhPTg
+	# Time Complexity: O(n)
+  # Space Complexity: O(1)
+	def morris_in_order_traversal
+		values = []
+
+		return values if @root.nil?
+
+		current_node = @root
+
+		while !current_node.nil?
+			if current_node.left.nil?
+				values.push(current_node.data)
+				current_node = current_node.right
+			else
+				predecessor = find_predecessor(current_node)
+				# if we're at the most right node, we make a link up to the current node
+				if predecessor.right.nil?
+					current_node.right = current_node
+					current_node = current_node.left
+				# if predecessor.right exists, this means we're hitting a link that we previously made 
+				# this means we've already traversed this path / subtree
+				# and now need to unlink it to restore the tree structure
+				else
+					predecessor.right = null
+					values.push(current_node)
+					current_node = current_node.right
+				end
+			end
+		end
+
+		return values
+
+	end
+
+	# to find predecessor of current node, start at current's left node and go all the way right
+	def find_predecessor(current_node)
+		current_node = current_node.left
+
+		while current_node.right
+			current_node = current_node.right
+		end
+
+		return current_node
+	end
 end
