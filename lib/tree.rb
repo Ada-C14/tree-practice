@@ -31,7 +31,13 @@ class Tree
 	def add_helper(current, new_node)
 		return new_node if current.nil?
 
+<<<<<<< HEAD
 		if new_node.key <= current.key
+=======
+		if new_node.key == current.key
+			current = new_node
+		elsif new_node.key < current.key
+>>>>>>> e04d7e7a7650d2a67ba57aabf64c37cdc1f08916
 			current.left = add_helper(current.left, new_node)
 		elsif new_node.key > current.key
 			current.right = add_helper(current.right, new_node)
@@ -100,8 +106,11 @@ class Tree
 		return values
 	end
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> e04d7e7a7650d2a67ba57aabf64c37cdc1f08916
   # Time Complexity: O(n)
   # Space Complexity: O(n) for call stack
   def postorder
@@ -118,11 +127,17 @@ class Tree
 		values.push({ key: current.key, value: current.value })
 	end
 
+<<<<<<< HEAD
 
 
 	# Time Complexity: O(n)
   # Space Complexity: O(n) for call stack
   def height()
+=======
+	# Time Complexity: O(n)
+  # Space Complexity: O(n) for call stack
+  def height
+>>>>>>> e04d7e7a7650d2a67ba57aabf64c37cdc1f08916
     height_helper(@root)
   end
 
@@ -139,11 +154,16 @@ class Tree
 		end
 	end
 
+<<<<<<< HEAD
 
 
 
   # Optional Method
   # Time Complexity: O(n)
+=======
+  # Optional Method
+	# Time Complexity: O(n)
+>>>>>>> e04d7e7a7650d2a67ba57aabf64c37cdc1f08916
   # Space Complexity: O(n) for queue
   def bfs 
 		values = []
