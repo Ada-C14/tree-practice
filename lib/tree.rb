@@ -100,8 +100,11 @@ class Tree
 		return values
 	end
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> e04d7e7a7650d2a67ba57aabf64c37cdc1f08916
   # Time Complexity: O(n)
   # Space Complexity: O(n) for call stack
   def postorder
@@ -118,11 +121,9 @@ class Tree
 		values.push({ key: current.key, value: current.value })
 	end
 
-
-
 	# Time Complexity: O(n)
   # Space Complexity: O(n) for call stack
-  def height()
+  def height
     height_helper(@root)
   end
 
@@ -139,11 +140,8 @@ class Tree
 		end
 	end
 
-
-
-
   # Optional Method
-  # Time Complexity: O(n)
+	# Time Complexity: O(n)
   # Space Complexity: O(n) for queue
   def bfs 
 		values = []
