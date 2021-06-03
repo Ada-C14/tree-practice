@@ -16,8 +16,8 @@ class Tree
     @root = nil
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(log n) if balanced, otherwise O(n) where n is number of nodes
+  # Space Complexity: O(n), n is height
   def add(key, value=nil)
     new_node = TreeNode.new(key, value)
 
@@ -40,8 +40,8 @@ class Tree
     return curr_node
   end  
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(log n) if balanced
+  # Space Complexity: O(n)
   def find(key)
     find_helper(@root, key)  #starts at root
   end
@@ -57,8 +57,8 @@ class Tree
     end
   end 
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n), n is number of nodes
+  # Space Complexity: O(n)
   def inorder
     return inorder_helper(@root, [])
   end
@@ -71,8 +71,8 @@ class Tree
     return list
   end 
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n)
+  # Space Complexity: O(n)
   def preorder
     return preorder_helper(@root, [])
   end
@@ -84,8 +84,8 @@ class Tree
     preorder_helper(current.right, list)
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n)
+  # Space Complexity: O(n)
   def postorder
     return postorder_helper(@root, [])
   end
