@@ -18,7 +18,7 @@ class Tree
 
   # Time Complexity: 
   # Space Complexity: 
-  def add(key, value)
+  def add(key, value = 0)
     # there may or may not be a root
     # if there's no root then the key/value will be the new root
     # otherwise check to see if value is bigger or smaller than the root value
@@ -51,7 +51,7 @@ class Tree
   # Time Complexity: 
   # Space Complexity: 
   def find(key)
-    if @root == nil
+    if @root.nil?
       return nil
     end
     here = @root
@@ -70,26 +70,86 @@ class Tree
   # Time Complexity: 
   # Space Complexity: 
   def inorder
-    raise NotImplementedError
+    values = []
+    if @root.nil?
+      return values
+    end
+    return inorder_helper(@root, values)
   end
+
+  def inorder_helper(here, values)
+    if here.nil?
+      return values
+    end
+
+    inorder_helper(here.left, values)
+    values.push({:key=>here.key, :value=>here.value})
+    inorder_helper(here.right, values)
+    return values
+  end
+
 
   # Time Complexity: 
   # Space Complexity: 
   def preorder
-    raise NotImplementedError
+    values = []
+    if @root.nil?
+      return values
+    end
+    return preorder_helper(@root, values)
+  end
+
+  def preorder_helper(here, values)
+    if here.nil?
+      return values
+    end
+    
+    values.push({:key=>here.key, :value=>here.value})
+    preorder_helper(here.left, values)
+    preorder_helper(here.right, values)
+    
+    return values
   end
 
   # Time Complexity: 
   # Space Complexity: 
   def postorder
-    raise NotImplementedError
+    values = []
+    if @root.nil?
+      return values
+    end
+    return postorder_helper(@root, values)
+  end
+
+  def postorder_helper(here, values)
+    if here.nil?
+      return values
+    end
+
+    postorder_helper(here.left, values)
+    postorder_helper(here.right, values)
+    values.push({:key=>here.key, :value=>here.value})
+    return values
   end
 
   # Time Complexity: 
   # Space Complexity: 
   def height
-    raise NotImplementedError
+    height = 0
+    if @root.nil?
+      return height
+    end
+    return height_helper(@root)
   end
+  
+  def height_helper(here)
+    if here.nil?
+      return 0
+    end
+    return 1 + [height_helper(here.left), height_helper(here.right)].max
+  end
+
+
 
   # Optional Method
   # Time Complexity: 
