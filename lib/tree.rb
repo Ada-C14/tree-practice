@@ -14,68 +14,63 @@ class Tree
   attr_reader :root
 
   def initialize
+    # we have access to @root-instance variable of class tree because the below methods are class methods
     @root = nil
   end
 
   # Time Complexity: Olog(n)
   # Space Complexity: O(1)
-  def add(key, value)
+  def add(key, value = nil)
     new_node = TreeNode.new(key, value)
-
-    if @root == nil
+    if @root.nil?
       @root = new_node
     else
-      current_node = @root
-      previouse_node = @root
+      add_helper(@root, new_node)
+    end
+  end
 
-      while current_node != nil
-        previouse_node = current_node
-        if key < current_node.key
-          current_node = current_node.left
-        else
-          current_node = current_node.right
-        end
-
-        if key < previouse_node.key
-          previouse_node.left = new_node
-        else
-          previouse_node.right = new_node
-        end
-      end
-
+  def add_helper(parent, new_node)
+    if parent.nil?
       return new_node
+    end
+
+    if new_node.key <= parent.key
+      # If left is nil, add new node to left, if not continue to evaluate.
+      parent.left.nil? ? parent.left = new_node : add_helper(parent.left, new_node)
+    else
+      parent.right.nil? ? parent.right = new_node : add_helper(parent.right, new_node)
     end
   end
 
   # Time Complexity: O(n)
   # Space Complexity: O(1)
   def find(key)
-    def find_helper(key, current_node)
-      if current_node.nil?
-        return nil
-      elsif key == current_node.key
-        return current_node.value
-      elsif key < current_node.key
-        # look to the left
-        find_helper(key, current_node.left)
-      elsif key > current_node.key
-        # look to the right
-        find_helper(key, current_node.right)
-      end
-    end
-
     find_helper(key, @root)
   end
 
-   # Time Complexity: O(n)
+  def find_helper(key, current_node)
+    if current_node.nil?
+      return nil
+    elsif key == current_node.key
+      return current_node.value
+    elsif key < current_node.key
+      # look to the left
+      find_helper(key, current_node.left)
+    elsif key > current_node.key
+      # look to the right
+      find_helper(key, current_node.right)
+    end
+  end
+
+  # Time Complexity: O(n)
   # Space Complexity: O(1)
   def inorder(current_node = @root, answer = [])
-    return [] if current_node.nil?
+    return answer if current_node.nil?
 
     if current_node
       inorder(current_node.left, answer)
-      answer.push({key: current_node.key, value: current_node.value})
-      inorder(current_node.right)
+      answer.push({ key: current_node.key, value: current_node.value })
+      inorder(current_node.right, answer)
     end
 
     return answer
@@ -84,11 +79,11 @@ class Tree
   # Time Complexity: O(n)
   # Space Complexity: O(1)
   def preorder(current_node = @root, answer = [])
-    return [] if current_node.nil?
+    return answer if current_node.nil?
 
-    answer.push({key: current_node.key, value: current_node.value})
+    answer.push({ key: current_node.key, value: current_node.value })
+    preorder(current_node.left, answer)
     preorder(current_node.right, answer)
-    preorder(current_node.left)
 
     return answer
   end
@@ -96,12 +91,11 @@ class Tree
   # Time Complexity: O(n)
   # Space Complexity: O(1)
   def postorder(current_node = @root, answer = [])
-    return [] if current_node.nil?
+    return answer if current_node.nil?
 
     postorder(current_node.left, answer)
-    postorder(current_node.right)
-    
-    answer.push({key: current_node.key, value: current_node.value})
+    postorder(current_node.right, answer)
+    answer.push({ key: current_node.key, value: current_node.value })
 
     return answer
   end
@@ -119,14 +113,16 @@ class Tree
     else
       return right_height + 1
     end
-    
   end
 
   # Optional Method
   # Time Complexity:
   # Space Complexity:
   def bfs
-    raise NotImplementedError
+  end
+
+  def bfs_helper(current_node, answer)
+    return answer if current_node.nil?
   end
 
   # Useful for printing
