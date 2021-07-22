@@ -98,8 +98,8 @@ class Tree
   end
   
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n)
+  # Space Complexity: O(n)
   def height
     return height_helper(@root)
   end
